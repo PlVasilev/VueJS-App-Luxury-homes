@@ -16,8 +16,8 @@
       <div class="container">
         
         <div class="row large-gutters">
-          <div class="col-lg-6 mb-5">
-                  <div><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Image" class="img-fluid"></div>
+          <div class="col-lg-6 mb-5 picture-container">
+                  <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Image" class="img-fluid">
           </div>
           <div class="col-lg-6 ml-auto">
             
@@ -32,6 +32,8 @@
                   <li>We make internation dieals</li>
                   <li>And so on and so on</li>
                 </ul>
+
+                <p ><a  class="btn btn-primary mr-2 mb-2">Get Started</a></p>
 <!-- 
                 <p *ngIf="!currentUser"><a routerLink="/user/register" class="btn btn-primary mr-2 mb-2">Get Started</a></p>
                 <p *ngIf="currentUser"><a routerLink="/listing/all" class="btn btn-primary mr-2 mb-2">See the Properties</a></p> -->
@@ -54,7 +56,9 @@ name: 'AppLanding',
 }
 </script>
 
-<style>
+<style scoped>
+
+
 .site-blocks-cover{
     min-height: 50vh;
     display: flex;
@@ -87,4 +91,8 @@ name: 'AppLanding',
     .large-gutters > [class*="col-"] {
       padding-right: 35px;
       padding-left: 35px; }
+
+.picture-container{
+  margin-bottom: 0 !important;
+}
 </style>

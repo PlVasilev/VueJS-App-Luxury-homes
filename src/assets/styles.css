@@ -4535,6 +4535,7 @@ input[type="button"].btn-block {
 
 .nav-link:hover, .nav-link:focus {
   text-decoration: none;
+  cursor: pointer;
 }
 
 .nav-link.disabled {
@@ -4557,7 +4558,8 @@ input[type="button"].btn-block {
   border-top-right-radius: 0.25rem;
 }
 
-.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus, .nav-item{
+  color: white;
   border-color: rgba(0, 0, 0, 0.6);
 }
 
