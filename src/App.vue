@@ -7,16 +7,18 @@
 </template>
 
 <script>
-import AppLanding from "./components/Landing.vue";
-import AppNav from "./components/core/Navigation.vue";
-import AppFooter from "./components/core/Footer.vue";
+import AppLanding from "./components/core/Landing.vue";
+import AppNav from "./components/shared/Navigation.vue";
+import AppFooter from "./components/shared/Footer.vue";
+import NotFound from "./components/core/NotFound.vue";
 
 export default {
   name: "App",
   components: {
     AppLanding,
     AppNav,
-    AppFooter
+    AppFooter,
+    NotFound
   }
 };
 

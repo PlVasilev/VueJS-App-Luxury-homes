@@ -53,14 +53,12 @@
 
 <script>
 import * as Kinvey from "kinvey-html5-sdk";
-import kinvey  from './kinvey-config'
+import kinvey  from '../../kinvey-config'
 
 Kinvey.init({
   appKey: kinvey.appKey,
   appSecret: kinvey.appSecret
 });
-
-
 
 
 export default {
