@@ -7,6 +7,7 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
+  <script src="https://da189i1jfloii.cloudfront.net/js/kinvey-html5-sdk-4.2.3.min.js"></script>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
@@ -16,4 +17,20 @@
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+<script>
+//   Kinvey.init({
+//   appKey: 'kid_SyGwQQfwI',
+//   appSecret: 'fe611b8e1ac542a8a6f3aa8ca2de8bb8'
+//   });
+
+//   var promise = Kinvey.ping().then(function(response) {
+//     console.log('Kinvey Ping Success. Kinvey Service is alive, version: '
+//                 + response.version
+//                 + ', response: '
+//                 + response.kinvey
+//     );
+// }).catch(function(error) {
+//     console.log('Kinvey Ping Failed. Response: ' + error.description);
+// });
+</script>
 </html>
