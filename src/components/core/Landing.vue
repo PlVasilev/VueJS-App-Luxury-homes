@@ -38,7 +38,7 @@
               </ul>
 
               <p>
-                <a class="btn btn-primary mr-2 mb-2"  @click="register">Get Started</a>
+                <a class="btn btn-primary mr-2 mb-2"  >Get Started</a>
               </p>
               <!-- 
                 <p *ngIf="!currentUser"><a routerLink="/user/register" class="btn btn-primary mr-2 mb-2">Get Started</a></p>
@@ -52,38 +52,15 @@
 </template>
 
 <script>
-import * as Kinvey from "kinvey-html5-sdk";
-import kinvey  from '../../kinvey-config'
-
-Kinvey.init({
-  appKey: kinvey.appKey,
-  appSecret: kinvey.appSecret
-});
 
 
 export default {
   name: "AppLanding",
-  props: {
-    msg: String,
-    username: String,
-    password: String
-  },
-  methods: {
-    register() {
-      Kinvey.User.signup({
-        username: "username1",
-        password: "password1",
-        address: "Boston MA"
-      })
-        .then(function(user) {
-          console.log(user);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
+  
+  beforeCreate() {
+    this.$emit('onAuth', localStorage.getItem('kid_SyGwQQfwI.active_user') !== null);
   }
-};
+}
 </script>
 
 <style scoped>

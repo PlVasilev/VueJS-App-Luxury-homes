@@ -22,7 +22,6 @@
                 @blur="$v.username.$touch"
                 placeholder="Username"
               />
-              {{username}}
               <template v-if="$v.username.$error">
                 <div
                   v-if="!$v.username.required || !$v.username.alphanumeric"
@@ -190,12 +189,9 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import {
-  required,
-  email,
-  sameAs
-} from "vuelidate/lib/validators";
+import { required, email, sameAs } from "vuelidate/lib/validators";
 import { helpers } from "vuelidate/lib/validators";
+import userStore from "../../user-store.js";
 
 const alphanumeric = helpers.regex("alphanumeric", /^[a-zA-Z0-9]{3,}$/);
 
@@ -247,7 +243,14 @@ export default {
         console.log("ERROR");
         return;
       }
-        console.log(this.username)
+      userStore.register(
+        this.username,
+        this.password,
+        this.email,
+        this.firstname,
+        this.lastname,
+        this.phonenumber
+      );
       this.$router.push("/");
       this.success = true;
     }
@@ -256,5 +259,4 @@ export default {
 </script>
 
 <style>
-
 </style>

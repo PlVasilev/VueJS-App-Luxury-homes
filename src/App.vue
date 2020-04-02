@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <app-nav></app-nav>
-    <router-view></router-view>
+    <app-nav @onAuth="isAuth = $event" :isAuth="isAuth"></app-nav>
+    <router-view @onAuth="isAuth = $event" :isAuth="isAuth"></router-view>
     <app-footer></app-footer>
   </div>
 </template>
@@ -14,6 +14,11 @@ import AppFooter from "./components/shared/Footer.vue";
 
 export default {
   name: "App",
+  data: function() {
+    return {
+      isAuth: localStorage.getItem('kid_SyGwQQfwI.active_user') !== null
+    }
+  },
   components: {
     AppNav,
     AppFooter, 
