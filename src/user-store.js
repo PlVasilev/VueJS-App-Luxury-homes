@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import * as Kinvey from "kinvey-html5-sdk";
-import kinvey from './kinvey-config.js'
+import kinvey from './kinvey-config.js';
+import store from './store.js'
 
 Kinvey.init({
     appKey: kinvey.appKey,
     appSecret: kinvey.appSecret
 });
-
-
 
 const userStore = new Vue({
     methods: {
@@ -26,25 +25,24 @@ const userStore = new Vue({
         logout() {
             Kinvey.User.logout()
             .then(function () {
-                console.log("LOGOUT")
-         
-            
             }).catch(function (error) {
                 console.log(error);
             });
 
         },
         login(username, password) {
+            this.loggedUserName = 'hey'
             Kinvey.User.login(username, password)
                 .then(function (user) {
-                    console.log(user)
+                    store.loggedUserName = user.username;
+                    console.log(store.loggedUserName)             
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
-        getActiveUser() {
-            return Kinvey.User.getActiveUser();
+        getUser(){
+            return this.loggedUserName;
         }
     }
 });

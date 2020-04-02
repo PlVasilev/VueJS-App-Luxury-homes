@@ -2,7 +2,7 @@
   <div id="app">
     <app-nav @onAuth="isAuth = $event" :isAuth="isAuth"></app-nav>
     <router-view @onAuth="isAuth = $event" :isAuth="isAuth"></router-view>
-    <app-footer></app-footer>
+    <app-footer @onAuth="isAuth = $event" :isAuth="isAuth"></app-footer>
   </div>
 </template>
 

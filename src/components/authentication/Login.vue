@@ -110,7 +110,7 @@ export default {
         this.username,
         this.password,
       );
-     setTimeout( () => this.$router.push({ path: '/'}), 3000);
+     setTimeout( () => this.$router.push({ path: '/'}), 2000);
       this.success = true;
     }
   }

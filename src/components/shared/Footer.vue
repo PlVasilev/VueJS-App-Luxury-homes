@@ -1,60 +1,47 @@
 <template>
   <div>
-    <!-- Footer -->
     <footer class="font-small indigo">
-      <!-- Footer Links -->
       <div class="container">
-        <!-- Grid row-->
         <div class="row text-center d-flex justify-content-center">
-          <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold">
-              <a routerLink="/">Home</a>
+              <router-link to="/">Home</router-link>
             </h6>
           </div>
-          <!-- Grid column -->
+          <div v-if="isAuth" class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+              <router-link to="/login">Properties</router-link>
+            </h6>
+          </div>
 
-          <!-- Grid column -->
-          <!-- <div *ngIf="currentUser" class="col-md-2 ">
-          <h6 class="text-uppercase font-weight-bold">
-            <a routerLink="/listing/all">Properties</a>
-          </h6>
-        </div>
+          <div v-if="isAuth" class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+              <router-link to="/login">Add Property</router-link>
+            </h6>
+          </div>
 
-        <div *ngIf="currentUser" class="col-md-2 ">
-          <h6 class="text-uppercase font-weight-bold">
-            <a routerLink="/listing/add">Add Property</a>
-          </h6>
+          <div v-if="isAuth" class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+              <router-link to="/login">Customer Requests</router-link>
+            </h6>
+          </div>
         </div>
-     
-        <div *ngIf="currentUser" class="col-md-2 ">
-          <h6 class="text-uppercase font-weight-bold">
-            <a routerLink="/administration/contact">Contact us</a>
-          </h6>
-        </div>
-        
-        <div *ngIf="currentUser" class="col-md-2 ">
-          <h6 class="text-uppercase font-weight-bold">
-            <a routerLink="/user/requests">Customer Requests</a>
-          </h6>
-          </div>-->
-          <!-- Grid column -->
-        </div>
-        <!-- Grid row-->
       </div>
-      <!-- Footer Links -->
+
       <div class="footer-copyright text-center py-3">
         © 2020 Copyright:
         <a href="https://mdbootstrap.com/education/bootstrap/">MDBootstrap.com</a>
       </div>
-      <!-- Copyright -->
     </footer>
-    <!-- Footer -->
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    isAuth: Boolean
+  }
+};
 </script>
 
 <style scoped>

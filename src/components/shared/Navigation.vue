@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <router-link to="/" class="navbar-brand">Luxury Homes</router-link>
+      <router-link to="/" class="navbar-brand ">Luxury Homes</router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -17,22 +17,21 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link">
+            <router-link v-if="isAuth" to="/login" class="nav-link">
               Properties
               <span class="sr-only">(current)</span>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-             <router-link to="/login" class="nav-link">Add Property</router-link>
+             <router-link v-if="isAuth" to="/login" class="nav-link">My Properties</router-link>
           </li>
-          <li class="nav-item">
-            <a class="nav-link">Contact Us</a>
+            <li class="nav-item">
+             <router-link v-if="isAuth" to="/login" class="nav-link">Add Property</router-link>
           </li>
         </ul>
-        <router-link v-if="!isAuth" to="/login" class="nav-link">Login{{isAuth}}</router-link>
+        <router-link v-if="!isAuth" to="/login" class="nav-link">Login</router-link>
         <router-link v-if="!isAuth" to="/register" class="nav-link">Register</router-link>
-        <a class="nav-link">Customer Requests</a>
-        <a class="nav-link">Users messages</a>
+        <router-link v-if="isAuth" to="/register" class="nav-link">Customer Requests</router-link>
         <a v-if="isAuth"  class="nav-link" @click="logout">Logout</a>
       </div>
     </nav>
@@ -44,18 +43,17 @@ import userStore from "../../user-store.js";
 
 export default {
   props: {
-    isAuth: Boolean
+    isAuth: Boolean,
+    userProp: String
   },
   methods:{
     logout(){
       userStore.logout();
-      localStorage.removeItem('kid_SyGwQQfwI.active_user')
+      localStorage.removeItem('kid_SyGwQQfwI.active_user');
+      this.$router.push({ path: '/'})
       this.$emit('onAuth', false)
     }
-  },
-
-
-
+  }
 };
 </script>
 
