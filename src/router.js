@@ -1,6 +1,8 @@
 import VueRouter from 'vue-router';
 import Landing from './components/core/Landing';
 import NotFound from './components/core/NotFound';
+import Login from './components/authentication/Login';
+import Register from './components/authentication/Register';
 
 
 const router = new VueRouter({
@@ -10,10 +12,14 @@ const router = new VueRouter({
       path: '/',
       component: Landing
     },
-    // {
-    //   path: '/about',
-    //   component: About
-    // },
+    {
+      path: '/login',
+      component: Login
+    },
+    {
+      path: '/register',
+      component: Register
+    },
     // {
     //   path: '/edit/:id',
     //   component: About

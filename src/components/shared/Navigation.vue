@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" routerLink>Luxury Homes</a>
+      <router-link to="/" class="navbar-brand">Luxury Homes</router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -68,6 +68,10 @@ export default {};
 </script>
 
 <style scoped>
+a{
+  cursor: pointer;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
