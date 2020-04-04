@@ -43,9 +43,6 @@ const userStore = new Vue({
                     console.log(error);
                 });
         },
-        getUser(){
-            return this.loggedUserName;
-        }
     },
 });
 

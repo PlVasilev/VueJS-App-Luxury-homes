@@ -51,12 +51,20 @@ export default {
     logout(){
       requester.logout();
       localStorage.removeItem('kid_SyGwQQfwI.active_user');
+      store.user = null;
+      store.loggedUserName = null;
       if(!store.isInLanding){
          this.$router.push({ path: '/'})
       }
       this.$emit('onAuth', false)
     }
-  }
+  },
+    beforeCreate() {
+    this.$emit(
+      "onAuth",
+      localStorage.getItem("kid_SyGwQQfwI.active_user") !== null
+    );
+  },
 };
 </script>
 

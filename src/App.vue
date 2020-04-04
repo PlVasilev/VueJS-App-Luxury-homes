@@ -10,7 +10,6 @@
 //import AppLanding from "./components/core/Landing.vue";
 import AppNav from "./components/shared/Navigation.vue";
 import AppFooter from "./components/shared/Footer.vue";
-//import NotFound from "./components/core/NotFound.vue";
 
 export default {
   name: "App",
@@ -21,7 +20,7 @@ export default {
   },
   components: {
     AppNav,
-    AppFooter, 
+    AppFooter
   }
 };
 

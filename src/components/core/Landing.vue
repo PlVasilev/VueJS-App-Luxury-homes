@@ -70,9 +70,10 @@ export default {
     );
   },
   created: function() {
-    this.user = store.loggedUserName;
+    this.user =  localStorage.getItem("kid_SyGwQQfwI.active_user");
     store.isInLanding = true;
-    console.log("a is: " + this.user);
+    store.user =  this.user
+    //console.log("a is: " + store.user);
   },
   destroyed: function(){
      store.isInLanding = false;
