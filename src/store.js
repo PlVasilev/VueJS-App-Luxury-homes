@@ -1,5 +1,7 @@
 var store = {
-   loggedUserName: null
+   loggedUserName: null,
+   isInLanding: false,
+   isLoggedIn: false
   }
 
   export default store;

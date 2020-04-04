@@ -5,6 +5,9 @@
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
           <h1>Registration Form</h1>
+           <p v-if="authFailMsg" class="invalid-feedback">
+            Username already exists
+          </p>
           <div v-if="success">Registration Successful</div>
           <form v-else @submit.prevent="submitHandler">
             <div class="form-group input-group">
@@ -13,7 +16,7 @@
                   <i class="fa fa-user"></i>
                 </span>
               </div>
-              <input
+              <input v-bind:class="{ isValid: !$v.username.$invalid && $v.username.$dirty, isInvalid: $v.username.$error}"
                 class="form-control"
                 type="text"
                 name="username"
@@ -38,7 +41,7 @@
                   <i class="fa fa-user"></i>
                 </span>
               </div>
-              <input
+              <input v-bind:class="{ isValid: !$v.firstname.$invalid && $v.firstname.$dirty, isInvalid: $v.firstname.$error}"
                 class="form-control"
                 type="text"
                 name="firstname"
@@ -63,7 +66,7 @@
                   <i class="fa fa-user"></i>
                 </span>
               </div>
-              <input
+              <input v-bind:class="{ isValid: !$v.lastname.$invalid && $v.lastname.$dirty, isInvalid: $v.lastname.$error}"
                 class="form-control"
                 type="text"
                 name="lastname"
@@ -88,7 +91,7 @@
                   <i class="fa fa-envelope"></i>
                 </span>
               </div>
-              <input
+              <input v-bind:class="{ isValid: !$v.email.$invalid && $v.email.$dirty, isInvalid: $v.email.$error}"
                 class="form-control"
                 type="text"
                 name="email"
@@ -127,7 +130,7 @@
                   <i class="fa fa-lock"></i>
                 </span>
               </div>
-              <input
+              <input v-bind:class="{ isValid: !$v.password.$invalid && $v.password.$dirty, isInvalid: $v.password.$error}"
                 class="form-control"
                 type="password"
                 name="password"
@@ -153,7 +156,7 @@
                   <i class="fa fa-lock"></i>
                 </span>
               </div>
-              <input
+              <input v-bind:class="{ isValid: !$v.rePassword.$invalid && $v.rePassword.$dirty, isInvalid: $v.rePassword.$error}"
                 class="form-control"
                 type="password"
                 name="re-password"
@@ -191,7 +194,8 @@
 import { validationMixin } from "vuelidate";
 import { required, email, sameAs } from "vuelidate/lib/validators";
 import { helpers } from "vuelidate/lib/validators";
-import userStore from "../../user-store.js";
+import requester from "../../requester.js";
+import store from "../../store";
 
 const alphanumeric = helpers.regex("alphanumeric", /^[a-zA-Z0-9]{3,}$/);
 
@@ -206,7 +210,8 @@ export default {
       phonenumber: "",
       password: "",
       rePassword: "",
-      success: false
+      success: false,
+      authFailMsg: false
     };
   },
   validations: {
@@ -243,7 +248,7 @@ export default {
         console.log("ERROR");
         return;
       }
-      userStore.register(
+      requester.register(
         this.username,
         this.password,
         this.email,
@@ -251,8 +256,18 @@ export default {
         this.lastname,
         this.phonenumber
       );
-      this.$router.push("/");
-      this.success = true;
+      //setTimeout( () => this.$router.push({ path: '/'}), 2500);
+      setTimeout(
+        () => {
+          if (store.loggedUserName) {
+            this.$router.push({ path: "/" });
+            this.success = true;
+          } else {
+            this.authFailMsg = true;
+          }
+        },
+        2500
+      );
     }
   }
 };

@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import userStore from "../../user-store.js";
+import requester from "../../requester.js";
+import store from "../../store.js";
 
 export default {
   props: {
@@ -48,9 +49,11 @@ export default {
   },
   methods:{
     logout(){
-      userStore.logout();
+      requester.logout();
       localStorage.removeItem('kid_SyGwQQfwI.active_user');
-      this.$router.push({ path: '/'})
+      if(!store.isInLanding){
+         this.$router.push({ path: '/'})
+      }
       this.$emit('onAuth', false)
     }
   }

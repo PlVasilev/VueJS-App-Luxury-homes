@@ -5,6 +5,9 @@
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
           <h1>Login Form</h1>
+          <p v-if="authFailMsg" class="invalid-feedback">
+            Invalid Userename or Password
+          </p>
           <div v-if="success">Registration Successful</div>
           <form v-else @submit.prevent="submitHandler">
             <div class="form-group input-group">
@@ -13,7 +16,7 @@
                   <i class="fa fa-user"></i>
                 </span>
               </div>
-              <input
+              <input v-bind:class="{ isValid: !$v.username.$invalid && $v.username.$dirty, isInvalid: $v.username.$error}"
                 class="form-control"
                 type="text"
                 name="username"
@@ -38,7 +41,7 @@
                   <i class="fa fa-lock"></i>
                 </span>
               </div>
-              <input
+              <input v-bind:class="{ isValid: !$v.password.$invalid && $v.password.$dirty, isInvalid: $v.password.$error}"
                 class="form-control"
                 type="password"
                 name="password"
@@ -70,14 +73,14 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 import { helpers } from "vuelidate/lib/validators";
-import userStore from "../../user-store.js";
+import requester from "../../requester.js";
+import store from "../../store";
 
 const alphanumeric = helpers.regex("alphanumeric", /^[a-zA-Z0-9]{3,}$/);
 export default {
@@ -86,7 +89,8 @@ export default {
     return {
       username: "",
       password: "",
-      success: false
+      success: false,
+      authFailMsg: false
     };
   },
   validations: {
@@ -100,23 +104,25 @@ export default {
     }
   },
   methods: {
-    async submitHandler() {
+    submitHandler() {
       this.$v.$touch();
       if (this.$v.$error) {
-
         return;
       }
-       userStore.login(
-        this.username,
-        this.password,
+      requester.login(this.username, this.password);
+      setTimeout(
+        () => {
+          if (store.loggedUserName) {
+            this.$router.push({ path: "/" });
+            this.success = true;
+          } else {
+            this.authFailMsg = true;
+          }
+        },
+
+        2500
       );
-     setTimeout( () => this.$router.push({ path: '/'}), 2000);
-      this.success = true;
     }
   }
 };
 </script>
-
-<style>
-
-</style>

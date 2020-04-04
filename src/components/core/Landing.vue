@@ -36,13 +36,12 @@
                 <li>We make internation dieals</li>
                 <li>And so on and so on</li>
               </ul>
-
-              <p>
-                <a class="btn btn-primary mr-2 mb-2"  >Get Started</a>
+              <p v-if="!isAuth">
+                <router-link to="/login" class="btn btn-primary mr-2 mb-2">Get Started</router-link>
               </p>
-              <!-- 
-                <p *ngIf="!currentUser"><a routerLink="/user/register" class="btn btn-primary mr-2 mb-2">Get Started</a></p>
-              <p *ngIf="currentUser"><a routerLink="/listing/all" class="btn btn-primary mr-2 mb-2">See the Properties</a></p>-->
+              <p v-else>
+                <router-link to="/login" class="btn btn-primary mr-2 mb-2">See the Properties</router-link>
+              </p>
             </div>
           </div>
         </div>
@@ -52,15 +51,33 @@
 </template>
 
 <script>
-
+import store from "../../store.js";
 
 export default {
   name: "AppLanding",
-  
+   props: {
+    isAuth: Boolean,
+  },
+  data: function() {
+    return {
+      user: ""
+    };
+  },
   beforeCreate() {
-    this.$emit('onAuth', localStorage.getItem('kid_SyGwQQfwI.active_user') !== null);
+    this.$emit(
+      "onAuth",
+      localStorage.getItem("kid_SyGwQQfwI.active_user") !== null
+    );
+  },
+  created: function() {
+    this.user = store.loggedUserName;
+    store.isInLanding = true;
+    console.log("a is: " + this.user);
+  },
+  destroyed: function(){
+     store.isInLanding = false;
   }
-}
+};
 </script>
 
 <style scoped>
