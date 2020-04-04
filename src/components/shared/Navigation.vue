@@ -26,7 +26,7 @@
              <router-link v-if="isAuth" to="/login" class="nav-link">My Properties</router-link>
           </li>
             <li class="nav-item">
-             <router-link v-if="isAuth" to="/login" class="nav-link">Add Property</router-link>
+             <router-link v-if="isAuth" to="/add-propertie" class="nav-link">Add Property</router-link>
           </li>
         </ul>
         <router-link v-if="!isAuth" to="/login" class="nav-link">Login</router-link>

@@ -19,17 +19,17 @@ const router = new VueRouter({
       path: '/login',
       component: Login,
       beforeEnter: (to, from, next) => {
-        store.user =  localStorage.getItem("kid_SyGwQQfwI.active_user");
+        store.getUser()
         const redirectUrl = !store.user ? undefined : '/notAuthorized'
         next(redirectUrl);
       }
-      
+
     },
     {
       path: '/register',
       component: Register,
       beforeEnter: (to, from, next) => {
-        store.user =  localStorage.getItem("kid_SyGwQQfwI.active_user");
+        store.getUser()
         const redirectUrl = !store.user ? undefined : '/notAuthorized'
         next(redirectUrl);
       }
@@ -39,8 +39,14 @@ const router = new VueRouter({
     //   component: About
     // },
     {
-      path: '/add',
-      component: Add
+      path: '/add-propertie',
+      component: Add,      
+      beforeEnter: (to, from, next) => {
+        store.getUser()
+        console.log(store.user)
+        const redirectUrl = store.user ? undefined : '/notAuthorized'
+        next(redirectUrl);
+      }
     },
     {
       path: '/notAuthorized',
