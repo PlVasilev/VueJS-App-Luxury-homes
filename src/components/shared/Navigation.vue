@@ -17,9 +17,9 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <router-link v-if="isAuth" to="/login" class="nav-link">
+            <router-link v-if="isAuth" to="/properties/all" class="nav-link">
               Properties
-              <span class="sr-only">(current)</span>
+              
             </router-link>
           </li>
           <li class="nav-item">

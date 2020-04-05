@@ -1,6 +1,7 @@
 var store = {
    user: null,
    loggedUserName: null,
+   allProperties: null,
    isInLanding: false,
    isLoggedIn: false,
    getUser(){

@@ -11,7 +11,7 @@ Kinvey.init({
 
 var dataStore = Kinvey.DataStore.collection('properties', Kinvey.DataStoreType.Network);
 
-const userStore = new Vue({
+const requester = new Vue({
     methods: {
         register(username, password, firstname, lastname, email, phonenumber) {
             Kinvey.User.signup({
@@ -78,8 +78,19 @@ const userStore = new Vue({
             }).catch(function onError(error) {
                 console.log(error)
             });
+        },
+        GetAllProperties() {
+            var stream = dataStore.find();
+            stream.subscribe(function onNext(entities) {
+                store.allProperties = entities;
+                console.log( store.allProperties)
+            }, function onError(error) {
+                console.log(error)
+            }, function onComplete() {
+                // ...
+            });           
         }
     },
 });
 
-export default userStore;
+export default requester;
