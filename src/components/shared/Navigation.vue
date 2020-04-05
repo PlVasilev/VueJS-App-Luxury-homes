@@ -51,6 +51,7 @@ export default {
     logout(){
       requester.logout();
       localStorage.removeItem('kid_SyGwQQfwI.active_user');
+      localStorage.removeItem('properties');
       store.user = null;
       store.loggedUserName = null;
       if(!store.isInLanding){
@@ -65,7 +66,6 @@ export default {
       localStorage.getItem("kid_SyGwQQfwI.active_user") !== null
     );
     store.user = JSON.parse(localStorage.getItem("kid_SyGwQQfwI.active_user")) 
-    console.log(store.user)
   },
 };
 </script>

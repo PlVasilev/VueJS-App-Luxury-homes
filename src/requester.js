@@ -20,6 +20,7 @@ const requester = new Vue({
                 .then(function (user) {
                     console.log(user)
                     store.loggedUserName = user.username;
+                   
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -30,6 +31,8 @@ const requester = new Vue({
                 .then(function () {
                 }).catch(function (error) {
                     store.loggedUserName = null;
+                    store.user=null;
+                    store.allProperties = null;
                     console.log(error);
                 });
 
@@ -38,7 +41,7 @@ const requester = new Vue({
             Kinvey.User.login(username, password)
                 .then(function (user) {
                     store.loggedUserName = user.username;
-
+                
                 })
                 .catch(function (error) {
                     store.loggedUserName = null;
@@ -83,6 +86,7 @@ const requester = new Vue({
             var stream = dataStore.find();
             stream.subscribe(function onNext(entities) {
                 store.allProperties = entities;
+                localStorage.setItem('properties', JSON.stringify(store.allProperties))
                 console.log( store.allProperties)
             }, function onError(error) {
                 console.log(error)

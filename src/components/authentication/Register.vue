@@ -257,9 +257,12 @@ export default {
         this.email,
         this.phonenumber
       );
+      
       //setTimeout( () => this.$router.push({ path: '/'}), 2500);
       setTimeout(
         () => {
+          console.log(store.loggedUserName)
+          requester.GetAllProperties();
           if (store.loggedUserName) {
             this.$router.push({ path: "/" });
             this.success = true;
@@ -267,7 +270,7 @@ export default {
             this.authFailMsg = true;
           }
         },
-        2500
+        3000
       );
    }
   }

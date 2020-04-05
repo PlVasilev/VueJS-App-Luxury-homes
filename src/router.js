@@ -45,7 +45,6 @@ const router = new VueRouter({
       component: Properties,      
       beforeEnter: (to, from, next) => {
         store.getUser()
-        console.log(store.user)
         const redirectUrl = store.user ? undefined : '/notAuthorized'
         next(redirectUrl);
       },

@@ -97,9 +97,10 @@
                 placeholder="Price"
               />
               <template v-if="$v.price.$error">
-                <div v-if="!$v.price.required || !$v.price.alphanumeric" class="invalid-feedback">
-                  Price MUST be positive integer number.
-                </div>
+                <div
+                  v-if="!$v.price.required || !$v.price.alphanumeric"
+                  class="invalid-feedback"
+                >Price MUST be positive integer number.</div>
               </template>
             </div>
             <div class="form-group input-group">
@@ -122,9 +123,7 @@
                 <div
                   v-if="!$v.yearOfConstruction.required || !$v.yearOfConstruction.alphanumeric"
                   class="invalid-feedback"
-                >
-              Year of creation MUST be between 1000 and 2999
-                </div>
+                >Year of creation MUST be between 1000 and 2999</div>
               </template>
             </div>
             <div class="form-group input-group">
@@ -199,9 +198,7 @@
                 <div
                   v-if="!$v.sizeInput.required || !$v.sizeInput.alphanumeric"
                   class="invalid-feedback"
-                >
-                  Price MUST be positive integer number.
-                </div>
+                >Price MUST be positive integer number.</div>
               </template>
             </div>
             <div class="form-group input-group">
@@ -224,9 +221,7 @@
                 <div
                   v-if="!$v.roomsInput.required || !$v.roomsInput.alphanumeric"
                   class="invalid-feedback"
-                >
-                  Price MUST be positive integer number.
-                </div>
+                >Price MUST be positive integer number.</div>
               </template>
             </div>
             <div class="form-group input-group">
@@ -249,9 +244,7 @@
                 <div
                   v-if="!$v.floorInput.required || !$v.floorInput.alphanumeric"
                   class="invalid-feedback"
-                >
-                  Price MUST be positive integer number.
-                </div>
+                >Price MUST be positive integer number.</div>
               </template>
             </div>
             <div class="form-group">
@@ -350,27 +343,28 @@ export default {
       if (this.$v.$error) {
         return;
       }
-      this.dateOfCreation = Date.now() // moment().format(Date.now());
+      this.dateOfCreation = Date.now(); // moment().format(Date.now());
       //console.log(moment(new Date()).format("DD/MM/YYYY"))
       requester.addPropertie(
-      this.title,
-      this.city,
-      this.imageUrl,
-      this.price,
-      this.yearOfConstruction,
-      this.addressInput,
-      this.descriptionInput,
-      this.sizeInput,
-      this.roomsInput,
-      this.floorInput,
-      this.creator = store.user.username,
-      this.dateOfCreation,
-      this.isDeleted,
+        this.title,
+        this.city,
+        this.imageUrl,
+        this.price,
+        this.yearOfConstruction,
+        this.addressInput,
+        this.descriptionInput,
+        this.sizeInput,
+        this.roomsInput,
+        this.floorInput,
+        (this.creator = store.user.username),
+        this.dateOfCreation,
+        this.isDeleted
       );
-      setTimeout(
+      setTimeout(       
         () => {
+          requester.GetAllProperties();
           if (store.user) {
-            this.$router.push({ path: "/" });
+            this.$router.push({ path: "/properties/all" });
             this.success = true;
           } else {
             this.authFailMsg = true;
@@ -378,7 +372,7 @@ export default {
         },
         2500
        );
-     }
+    }
   }
 };
 </script>

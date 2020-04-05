@@ -1,8 +1,6 @@
 <template>
    <div>
-        <slot name="type"></slot>
-        <slot name="price"></slot>
-        <slot name="ingredients"></slot>
+        <slot name="listing"></slot>   
    </div>
 </template>
 

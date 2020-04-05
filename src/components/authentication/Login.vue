@@ -113,14 +113,14 @@ export default {
       setTimeout(
         () => {
           if (store.loggedUserName) {
+            requester.GetAllProperties();
             this.$router.push({ path: "/" });
             this.success = true;
           } else {
             this.authFailMsg = true;
           }
         },
-
-        2500
+        3000
       );
     }
   }
