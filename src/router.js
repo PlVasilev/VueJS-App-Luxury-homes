@@ -4,6 +4,7 @@ import NotFound from './components/core/NotFound';
 import Login from './components/authentication/Login';
 import Register from './components/authentication/Register';
 import Add from './components/properties/Add';
+import Properties from './components/properties/Properties';
 import NotAuthorized from './components/core/NotAuthorized';
 import store from './store.js'
 
@@ -39,14 +40,20 @@ const router = new VueRouter({
     //   component: About
     // },
     {
-      path: '/add-propertie',
-      component: Add,      
+      path: '/properties',
+      component: Properties,      
       beforeEnter: (to, from, next) => {
         store.getUser()
         console.log(store.user)
         const redirectUrl = store.user ? undefined : '/notAuthorized'
         next(redirectUrl);
-      }
+      },
+      children: [
+        {
+          path: 'add',
+          component: Add,   
+        }
+      ]
     },
     {
       path: '/notAuthorized',

@@ -4,7 +4,7 @@ var store = {
    isInLanding: false,
    isLoggedIn: false,
    getUser(){
-      this.user = localStorage.getItem("kid_SyGwQQfwI.active_user");
+      this.user = JSON.parse(localStorage.getItem("kid_SyGwQQfwI.active_user")) ;
    }
   }
 

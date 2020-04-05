@@ -4,9 +4,9 @@
       <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-          <h1>Login Form</h1>
-          <p v-if="authFailMsg" class="invalid-feedback">Invalid Userename or Password</p>
-          <div v-if="success">Registration Successful</div>
+          <h1>Add Propertie</h1>
+          <p v-if="authFailMsg" class="invalid-feedback">Server error please try again</p>
+          <div v-if="success">Added Propertie</div>
           <form v-else @submit.prevent="submitHandler">
             <div class="form-group input-group">
               <div class="input-group-prepend">
@@ -98,8 +98,7 @@
               />
               <template v-if="$v.price.$error">
                 <div v-if="!$v.price.required || !$v.price.alphanumeric" class="invalid-feedback">
-                  Input must be least 3
-                  characters log.
+                  Price MUST be positive integer number.
                 </div>
               </template>
             </div>
@@ -124,8 +123,7 @@
                   v-if="!$v.yearOfConstruction.required || !$v.yearOfConstruction.alphanumeric"
                   class="invalid-feedback"
                 >
-                  Input must be least 3
-                  characters log.
+              Year of creation MUST be between 1000 and 2999
                 </div>
               </template>
             </div>
@@ -138,7 +136,7 @@
               <input
                 v-bind:class="{ isValid: !$v.addressInput.$invalid && $v.addressInput.$dirty, isInvalid: $v.addressInput.$error}"
                 class="form-control"
-                type="number"
+                type="text"
                 name="addressInput"
                 id="addressInput"
                 v-model="addressInput"
@@ -202,8 +200,7 @@
                   v-if="!$v.sizeInput.required || !$v.sizeInput.alphanumeric"
                   class="invalid-feedback"
                 >
-                  Input must be least 3
-                  characters log.
+                  Price MUST be positive integer number.
                 </div>
               </template>
             </div>
@@ -228,8 +225,7 @@
                   v-if="!$v.roomsInput.required || !$v.roomsInput.alphanumeric"
                   class="invalid-feedback"
                 >
-                  Input must be least 3
-                  characters log.
+                  Price MUST be positive integer number.
                 </div>
               </template>
             </div>
@@ -254,18 +250,13 @@
                   v-if="!$v.floorInput.required || !$v.floorInput.alphanumeric"
                   class="invalid-feedback"
                 >
-                  Input must be least 3
-                  characters log.
+                  Price MUST be positive integer number.
                 </div>
               </template>
             </div>
             <div class="form-group">
-              <button :disabled="$v.$invalid" class="btn btn-primary btn-block">Log In</button>
+              <button :disabled="$v.$invalid" class="btn btn-primary btn-block">Add Propertie</button>
             </div>
-            <p class="text-center">
-              Do not have account?
-              <router-link to="/register">Register</router-link>
-            </p>
           </form>
         </div>
         <div class="col-lg-4"></div>
@@ -280,6 +271,8 @@ import { required } from "vuelidate/lib/validators";
 import { helpers } from "vuelidate/lib/validators";
 import requester from "../../requester.js";
 import store from "../../store";
+
+//var moment = require('moment');
 
 const alphanumeric = helpers.regex("alphanumeric", /^[a-zA-Z0-9]{3,}$/);
 const priceRegex = helpers.regex("priceRegex", /^[1-9]\d*$/);
@@ -296,13 +289,13 @@ export default {
       title: "",
       city: "",
       imageUrl: "",
-      price: 0,
+      price: "",
       yearOfConstruction: "",
       addressInput: "",
       descriptionInput: "",
-      sizeInput: 0,
-      roomsInput: 0,
-      floorInput: 0,
+      sizeInput: "",
+      roomsInput: "",
+      floorInput: "",
       creator: "",
       dateOfCreation: "",
       isDeleted: false,
@@ -313,15 +306,14 @@ export default {
   validations: {
     title: {
       required,
-      alphanumeric
+      descriptionRegex
     },
     city: {
       required,
       alphanumeric
     },
     imageUrl: {
-      required,
-      alphanumeric
+      required
     },
     price: {
       required,
@@ -358,20 +350,35 @@ export default {
       if (this.$v.$error) {
         return;
       }
-      requester.login(this.username, this.password);
+      this.dateOfCreation = Date.now() // moment().format(Date.now());
+      //console.log(moment(new Date()).format("DD/MM/YYYY"))
+      requester.addPropertie(
+      this.title,
+      this.city,
+      this.imageUrl,
+      this.price,
+      this.yearOfConstruction,
+      this.addressInput,
+      this.descriptionInput,
+      this.sizeInput,
+      this.roomsInput,
+      this.floorInput,
+      this.creator = store.user.username,
+      this.dateOfCreation,
+      this.isDeleted,
+      );
       setTimeout(
         () => {
-          if (store.loggedUserName) {
+          if (store.user) {
             this.$router.push({ path: "/" });
             this.success = true;
           } else {
             this.authFailMsg = true;
           }
         },
-
         2500
-      );
-    }
+       );
+     }
   }
 };
 </script>

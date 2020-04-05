@@ -93,7 +93,7 @@
               </div>
               <input v-bind:class="{ isValid: !$v.email.$invalid && $v.email.$dirty, isInvalid: $v.email.$error}"
                 class="form-control"
-                type="text"
+                type="email"
                 name="email"
                 id="email"
                 placeholder="marg@gmial.com"
@@ -204,9 +204,9 @@ export default {
   data() {
     return {
       username: "",
-      email: "",
       firstname: "",
       lastname: "",
+      email: "",
       phonenumber: "",
       password: "",
       rePassword: "",
@@ -248,12 +248,13 @@ export default {
         console.log("ERROR");
         return;
       }
+     
       requester.register(
         this.username,
         this.password,
-        this.email,
         this.firstname,
         this.lastname,
+        this.email,
         this.phonenumber
       );
       //setTimeout( () => this.$router.push({ path: '/'}), 2500);
@@ -268,7 +269,7 @@ export default {
         },
         2500
       );
-    }
+   }
   }
 };
 </script>

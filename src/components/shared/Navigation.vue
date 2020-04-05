@@ -26,7 +26,7 @@
              <router-link v-if="isAuth" to="/login" class="nav-link">My Properties</router-link>
           </li>
             <li class="nav-item">
-             <router-link v-if="isAuth" to="/add-propertie" class="nav-link">Add Property</router-link>
+             <router-link v-if="isAuth" to="/properties/add" class="nav-link">Add Property</router-link>
           </li>
         </ul>
         <router-link v-if="!isAuth" to="/login" class="nav-link">Login</router-link>
@@ -64,6 +64,8 @@ export default {
       "onAuth",
       localStorage.getItem("kid_SyGwQQfwI.active_user") !== null
     );
+    store.user = JSON.parse(localStorage.getItem("kid_SyGwQQfwI.active_user")) 
+    console.log(store.user)
   },
 };
 </script>

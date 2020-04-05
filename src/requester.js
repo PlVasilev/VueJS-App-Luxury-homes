@@ -9,15 +9,17 @@ Kinvey.init({
     appSecret: kinvey.appSecret
 });
 
+var dataStore = Kinvey.DataStore.collection('properties', Kinvey.DataStoreType.Network);
+
 const userStore = new Vue({
     methods: {
-        register(username, email, firstname, lastname, phonenumber, password) {
+        register(username, password, firstname, lastname, email, phonenumber) {
             Kinvey.User.signup({
-                username, password, email, firstname, lastname, phonenumber
+                username, password, firstname, lastname, email, phonenumber
             })
                 .then(function (user) {
                     console.log(user)
-        
+                    store.loggedUserName = user.username;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -25,24 +27,58 @@ const userStore = new Vue({
         },
         logout() {
             Kinvey.User.logout()
-            .then(function () {
-            }).catch(function (error) {
-                store.loggedUserName = null;
-                console.log(error);
-            });
+                .then(function () {
+                }).catch(function (error) {
+                    store.loggedUserName = null;
+                    console.log(error);
+                });
 
         },
         login(username, password) {
             Kinvey.User.login(username, password)
                 .then(function (user) {
-                    store.loggedUserName = user.username;   
-                  
+                    store.loggedUserName = user.username;
+
                 })
                 .catch(function (error) {
                     store.loggedUserName = null;
                     console.log(error);
                 });
         },
+        addPropertie(
+            title,
+            city,
+            imageUrl,
+            price,
+            yearOfConstruction,
+            addressInput,
+            descriptionInput,
+            sizeInput,
+            roomsInput,
+            floorInput,
+            creator = store.user.username,
+            dateOfCreation,
+            isDeleted) {
+            dataStore.save({
+                title,
+                city,
+                imageUrl,
+                price,
+                yearOfConstruction,
+                addressInput,
+                descriptionInput,
+                sizeInput,
+                roomsInput,
+                floorInput,
+                creator,
+                dateOfCreation,
+                isDeleted
+            }).then(function onSuccess(entity) {
+                console.log(entity)
+            }).catch(function onError(error) {
+                console.log(error)
+            });
+        }
     },
 });
 
