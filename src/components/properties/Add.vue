@@ -25,7 +25,7 @@
                 placeholder="Title"
               />
               <template v-if="$v.title.$error">
-                <div v-if="!$v.title.required || !$v.title.alphanumeric" class="invalid-feedback">
+                <div v-if="!$v.title.required || !$v.title.descriptionRegex" class="invalid-feedback">
                   Input must be least 3
                   characters log.
                 </div>
@@ -48,7 +48,7 @@
                 placeholder="City"
               />
               <template v-if="$v.city.$error">
-                <div v-if="!$v.city.required || !$v.city.alphanumeric" class="invalid-feedback">
+                <div v-if="!$v.city.required || !$v.city.descriptionRegex" class="invalid-feedback">
                   Input must be least 3
                   characters log.
                 </div>
@@ -72,7 +72,7 @@
               />
               <template v-if="$v.imageUrl.$error">
                 <div
-                  v-if="!$v.imageUrl.required || !$v.imageUrl.alphanumeric"
+                  v-if="!$v.imageUrl.required || !$v.imageUrl.descriptionRegex"
                   class="invalid-feedback"
                 >
                   Input must be least 3
@@ -98,7 +98,7 @@
               />
               <template v-if="$v.price.$error">
                 <div
-                  v-if="!$v.price.required || !$v.price.alphanumeric"
+                  v-if="!$v.price.required || !$v.price.priceRegex"
                   class="invalid-feedback"
                 >Price MUST be positive integer number.</div>
               </template>
@@ -121,7 +121,7 @@
               />
               <template v-if="$v.yearOfConstruction.$error">
                 <div
-                  v-if="!$v.yearOfConstruction.required || !$v.yearOfConstruction.alphanumeric"
+                  v-if="!$v.yearOfConstruction.required || !$v.yearOfConstruction.yearOfConstructionRegex"
                   class="invalid-feedback"
                 >Year of creation MUST be between 1000 and 2999</div>
               </template>
@@ -144,7 +144,7 @@
               />
               <template v-if="$v.addressInput.$error">
                 <div
-                  v-if="!$v.addressInput.required || !$v.addressInput.alphanumeric"
+                  v-if="!$v.addressInput.required || !$v.addressInput.descriptionRegex"
                   class="invalid-feedback"
                 >
                   Input must be least 3
@@ -170,7 +170,7 @@
               ></textarea>
               <template v-if="$v.descriptionInput.$error">
                 <div
-                  v-if="!$v.descriptionInput.required || !$v.descriptionInput.alphanumeric"
+                  v-if="!$v.descriptionInput.required || !$v.descriptionInput.descriptionRegex"
                   class="invalid-feedback"
                 >
                   Input must be least 3
@@ -196,7 +196,7 @@
               />
               <template v-if="$v.sizeInput.$error">
                 <div
-                  v-if="!$v.sizeInput.required || !$v.sizeInput.alphanumeric"
+                  v-if="!$v.sizeInput.required || !$v.sizeInput.price"
                   class="invalid-feedback"
                 >Price MUST be positive integer number.</div>
               </template>
@@ -219,7 +219,7 @@
               />
               <template v-if="$v.roomsInput.$error">
                 <div
-                  v-if="!$v.roomsInput.required || !$v.roomsInput.alphanumeric"
+                  v-if="!$v.roomsInput.required || !$v.roomsInput.price"
                   class="invalid-feedback"
                 >Price MUST be positive integer number.</div>
               </template>
@@ -242,7 +242,7 @@
               />
               <template v-if="$v.floorInput.$error">
                 <div
-                  v-if="!$v.floorInput.required || !$v.floorInput.alphanumeric"
+                  v-if="!$v.floorInput.required || !$v.floorInput.priceRegex"
                   class="invalid-feedback"
                 >Price MUST be positive integer number.</div>
               </template>
@@ -267,7 +267,7 @@ import store from "../../store";
 
 //var moment = require('moment');
 
-const alphanumeric = helpers.regex("alphanumeric", /^[a-zA-Z0-9]{3,}$/);
+//const alphanumeric = helpers.regex("alphanumeric", /^[a-zA-Z0-9]{3,}$/);
 const priceRegex = helpers.regex("priceRegex", /^[1-9]\d*$/);
 const descriptionRegex = helpers.regex("priceRegex", /^[\w\s,.`':;()&]{3,}$/);
 const yearOfConstructionRegex = helpers.regex(
@@ -303,7 +303,7 @@ export default {
     },
     city: {
       required,
-      alphanumeric
+      descriptionRegex
     },
     imageUrl: {
       required
@@ -364,7 +364,7 @@ export default {
         () => {
           requester.GetAllProperties();
           if (store.user) {
-            this.$router.push({ path: "/properties/all" });
+            this.$router.push({ path: "/" });
             this.success = true;
           } else {
             this.authFailMsg = true;

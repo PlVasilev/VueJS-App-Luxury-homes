@@ -2,6 +2,7 @@ var store = {
    user: null,
    loggedUserName: null,
    allProperties: null,
+   searchedProperties: null,
    isInLanding: false,
    isLoggedIn: false,
    getUser(){
