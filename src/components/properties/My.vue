@@ -15,9 +15,9 @@
           >
             <div slot="listing" class="ftco-media-1">
               <div class="ftco-media-1-inner">
-                <a @click="detailsIdHandler(listing._id)" class="d-inline-block mb-4">
+                <router-link :to="listing | listingEditLink" class="d-inline-block mb-4">
                   <img :src="listing.imageUrl" alt="FImageo" class="img-fluid" />
-                </a>
+                </router-link>
                 <div class="ftco-media-details">
                   <h3>{{listing.city}}</h3>
                   <p class="single-title">{{listing.title}}</p>
@@ -41,6 +41,11 @@ export default {
   components: {
     AppSingle
   },
+  filters: {
+    listingEditLink(listing) {
+      return `/properties/details/${listing._id}`;
+    }
+  },
   data: function() {
     return { search: this.$route.params.search };
   },
@@ -50,12 +55,18 @@ export default {
     }
   },
   beforeCreate() {
-    store.myProperties = store.allProperties.filter(
-      x => x.creator === store.user.username);
-
+    if (!localStorage.getItem("myProperties")) {
+      store.myProperties = store.allProperties.filter(
+        x => x.creator === store.user.username
+      );
+      localStorage.setItem("myProperties", JSON.stringify(store.myProperties));
+    } else {
+      store.myProperties = JSON.parse(localStorage.getItem("myProperties"));
+    }
     requester.GetAllProperties();
   },
   destroyed() {
+    localStorage.removeItem("myProperties")
     store.myProperties = null;
   }
 };

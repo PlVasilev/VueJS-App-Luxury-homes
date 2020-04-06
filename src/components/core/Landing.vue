@@ -40,7 +40,7 @@
                 <router-link to="/login" class="btn btn-primary mr-2 mb-2">Get Started</router-link>
               </p>
               <p v-else>
-                <router-link to="/login" class="btn btn-primary mr-2 mb-2">See the Properties</router-link>
+                <router-link to="/properties/all" class="btn btn-primary mr-2 mb-2">See the Properties</router-link>
               </p>
             </div>
           </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <router-link to="/" class="navbar-brand ">Luxury Homes</router-link>
+      <router-link to="/" class="navbar-brand">Luxury Homes</router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -17,22 +17,19 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <router-link v-if="isAuth" to="/properties/all" class="nav-link">
-              Properties
-              
-            </router-link>
+            <router-link v-if="isAuth" to="/properties/all" class="nav-link">Properties</router-link>
           </li>
           <li class="nav-item">
-             <router-link v-if="isAuth" to="/properties/my" class="nav-link">My Properties</router-link>
+            <router-link v-if="isAuth" to="/properties/my" class="nav-link">My Properties</router-link>
           </li>
-            <li class="nav-item">
-             <router-link v-if="isAuth" to="/properties/add" class="nav-link">Add Property</router-link>
+          <li class="nav-item">
+            <router-link v-if="isAuth" to="/properties/add" class="nav-link">Add Property</router-link>
           </li>
         </ul>
         <router-link v-if="!isAuth" to="/login" class="nav-link">Login</router-link>
         <router-link v-if="!isAuth" to="/register" class="nav-link">Register</router-link>
         <router-link v-if="isAuth" to="/register" class="nav-link">Customer Requests</router-link>
-        <a v-if="isAuth"  class="nav-link" @click="logout">Logout</a>
+        <a v-if="isAuth" class="nav-link" @click="logout">Logout</a>
       </div>
     </nav>
   </div>
@@ -47,32 +44,34 @@ export default {
     isAuth: Boolean,
     userProp: String
   },
-  methods:{
-    logout(){
+  methods: {
+    logout() {
       requester.logout();
-      localStorage.removeItem('kid_SyGwQQfwI.active_user');
-      localStorage.removeItem('properties');
+      localStorage.removeItem("kid_SyGwQQfwI.active_user");
+      localStorage.removeItem("properties");
+      localStorage.removeItem("myProperties");
       store.user = null;
       store.allProperties = null;
       store.loggedUserName = null;
-      if(!store.isInLanding){
-         this.$router.push({ path: '/'})
+      store.myProperties = null;
+      if (!store.isInLanding) {
+        this.$router.push({ path: "/" });
       }
-      this.$emit('onAuth', false)
+      this.$emit("onAuth", false);
     }
   },
-    beforeCreate() {
+  beforeCreate() {
     this.$emit(
       "onAuth",
       localStorage.getItem("kid_SyGwQQfwI.active_user") !== null
     );
-    store.user = JSON.parse(localStorage.getItem("kid_SyGwQQfwI.active_user")) 
-  },
+    store.user = JSON.parse(localStorage.getItem("kid_SyGwQQfwI.active_user"));
+  }
 };
 </script>
 
 <style scoped>
-a{
+a {
   cursor: pointer;
 }
 

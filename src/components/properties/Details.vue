@@ -38,6 +38,7 @@
               >Edit</a>
               <a
                 v-if="user && user.username == selectedListing.creator"
+                @click="deleteHandler"
                 class="btn btn-primary"
               >Delete</a>
             </div>
@@ -76,6 +77,33 @@ export default {
         name: "edit",
         params: { selectedListing: this.selectedListing }
       });
+    },
+      deleteHandler() {
+      requester.editPropertie(
+        this.selectedListing._id,
+        this.selectedListing.title,
+        this.selectedListing.city,
+        this.selectedListing.imageUrl,
+        this.selectedListing.price,
+        this.selectedListing.yearOfConstruction,
+        this.selectedListing.addressInput,
+        this.selectedListing.descriptionInput,
+        this.selectedListing.sizeInput,
+        this.selectedListing.roomsInput,
+        this.selectedListing.floorInput,
+        this.selectedListing.creator,
+        this.selectedListing.dateOfCreation,
+        this.isDeleted = true
+      );
+      setTimeout(() => {
+        requester.GetAllProperties();
+        if (store.user) {
+          this.$router.push({ path: "/" });
+          this.success = true;
+        } else {
+          this.authFailMsg = true;
+        }
+      }, 3000);
     }
   },
   beforeCreate() {
