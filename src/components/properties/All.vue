@@ -29,9 +29,9 @@
           >
             <div slot="listing" class="ftco-media-1">
               <div class="ftco-media-1-inner">
-                <a @click="detailsIdHandler(listing._id)" class="d-inline-block mb-4">
+                <router-link :to="listing | listingEditLink" class="d-inline-block mb-4">
                   <img :src="listing.imageUrl" alt="FImageo" class="img-fluid" />
-                </a>
+                </router-link>
                 <div class="ftco-media-details">
                   <h3>{{listing.city}}</h3>
                   <p class="single-title">{{listing.title}}</p>
@@ -55,6 +55,11 @@ import store from "../../store";
 
 export default {
   mixins: [validationMixin],
+    filters: {
+    listingEditLink(listing) {
+      return `/properties/details/${listing._id}`;
+    }
+  },
   data() {
     return {
       search: ""
@@ -70,6 +75,7 @@ export default {
   },
   beforeCreate() {
     store.allProperties = JSON.parse(localStorage.getItem("properties"));
+    console.log( store.allProperties)
     requester.GetAllProperties();
   },
   methods: {

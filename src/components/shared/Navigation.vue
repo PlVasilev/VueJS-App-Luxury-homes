@@ -53,6 +53,7 @@ export default {
       localStorage.removeItem('kid_SyGwQQfwI.active_user');
       localStorage.removeItem('properties');
       store.user = null;
+      store.allProperties = null;
       store.loggedUserName = null;
       if(!store.isInLanding){
          this.$router.push({ path: '/'})

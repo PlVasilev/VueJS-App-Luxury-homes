@@ -370,7 +370,7 @@ export default {
             this.authFailMsg = true;
           }
         },
-        2500
+        5000
        );
     }
   }

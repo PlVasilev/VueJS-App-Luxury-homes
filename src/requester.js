@@ -85,9 +85,8 @@ const requester = new Vue({
         GetAllProperties() {
             var stream = dataStore.find();
             stream.subscribe(function onNext(entities) {
-                store.allProperties = entities;
+                store.allProperties = entities.sort(function(a,b) {return b.dateOfCreation - a.dateOfCreation });
                 localStorage.setItem('properties', JSON.stringify(store.allProperties))
-                console.log( store.allProperties)
             }, function onError(error) {
                 console.log(error)
             }, function onComplete() {

@@ -4,6 +4,7 @@ var store = {
    allProperties: null,
    myProperties: null,
    searchedProperties: null,
+   selectedListing: null,
    isInLanding: false,
    isLoggedIn: false,
    getUser(){

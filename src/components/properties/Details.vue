@@ -1,0 +1,119 @@
+<template>
+  <div>
+    <div v-if="!selectedListing" class="site-section" id="property-details">
+      <h1>LOADING...</h1>
+    </div>
+    <div v-if="selectedListing" class="site-section" id="property-details">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 pl-lg-5 ml-auto">
+            <h3 class="text-black mb-4">{{selectedListing.title}}</h3>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="owl-carousel slide-one-item with-dots">
+              <div>
+                <img :src="selectedListing.imageUrl" alt="Image" class="img-fluid" />
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 pl-lg-5 ml-auto">
+            <div class="mb-5 property-details">
+              <p>Price: $ {{selectedListing.price}}</p>
+              <p>City: {{selectedListing.city}}</p>
+              <p>Address: {{selectedListing.addressInput}}</p>
+              <p>{{selectedListing.sizeInput}} square meters, {{selectedListing.roomsInput}} rooms, {{selectedListing.floorInput}} floor</p>
+              <p>Year of Consruction: {{selectedListing.yearOfConstruction}}</p>
+              <p>Posted on: {{postedOn}}</p>
+              <p>Posted by: {{selectedListing.creator}}</p>
+              <p>Description: {{selectedListing.descriptionInput}}</p>
+              <a
+                v-if="user && user.username != selectedListing.creator"
+                class="btn btn-primary"
+              >Send Reqest to view the property</a>
+              <a
+                v-if="user && user.username == selectedListing.creator"
+                routerLink="/listing/edit"
+                class="btn btn-primary"
+              >Edit</a>
+              <a
+                v-if="user && user.username == selectedListing.creator"
+                class="btn btn-primary"
+              >Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import requester from "../../requester.js";
+import store from "../../store";
+var moment = require("moment");
+
+export default {
+  data: function() {
+    return { id: this.$route.params.id };
+  },
+  computed: {
+    selectedListing: function() {
+      console.log(store.selectedListing);
+      return store.selectedListing[0];
+    },
+    postedOn: function() {
+      return moment(this.selectedListing.dateOfCreation).format("hh:mm DD/MM/YYYY");
+    },
+    user: function() {
+      return store.user;
+    }
+  },
+  beforeCreate() {
+    if (!localStorage.getItem("selectedPropertie")) {
+      store.selectedListing = store.allProperties.filter(
+        x => x._id === this.$route.params.id
+      );
+       localStorage.setItem(
+        "selectedPropertie",
+        JSON.stringify(store.selectedListing))
+    } else {
+      store.selectedListing = JSON.parse(localStorage.getItem("selectedPropertie"));
+    }
+    requester.GetAllProperties();
+  },
+  destroyed() {
+    store.selectedListing = null;
+    localStorage.removeItem("selectedPropertie");
+  }
+};
+</script>
+
+<style scoped>
+.property-details {
+  padding-top: 2rem;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+h3 {
+  padding-top: 1rem;
+  color: white;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.site-section {
+  min-height: 81vh;
+}
+
+.site-section h1 {
+  padding-top: 1em;
+  text-align: center;
+}
+</style>
