@@ -30,6 +30,7 @@
               <a
                 v-if="user && user.username != selectedListing.creator"
                 class="btn btn-primary"
+                @click="sendRequestHandler"
               >Send Reqest to view the property</a>
               <a
                 v-if="user && user.username == selectedListing.creator"
@@ -56,7 +57,10 @@ var moment = require("moment");
 
 export default {
   data: function() {
-    return { id: this.$route.params.id };
+    return {
+      id: this.$route.params.id,
+      dateOfCreation: Number
+    };
   },
   computed: {
     selectedListing: function() {
@@ -72,13 +76,32 @@ export default {
     }
   },
   methods: {
+    sendRequestHandler() {
+      this.dateOfCreation = Date.now();
+      requester.addRequest(
+        this.selectedListing.title,
+        store.user.username,
+        store.user.email,
+        this.dateOfCreation,
+        this.selectedListing.creator
+      );
+      setTimeout(() => {
+        requester.GetAllProperties();
+        if (store.user) {
+          this.$router.push({ path: "/" });
+          this.success = true;
+        } else {
+          this.authFailMsg = true;
+        }
+      }, 3000);
+    },
     editHandler() {
       this.$router.push({
         name: "edit",
         params: { selectedListing: this.selectedListing }
       });
     },
-      deleteHandler() {
+    deleteHandler() {
       requester.editPropertie(
         this.selectedListing._id,
         this.selectedListing.title,
@@ -93,7 +116,7 @@ export default {
         this.selectedListing.floorInput,
         this.selectedListing.creator,
         this.selectedListing.dateOfCreation,
-        this.isDeleted = true
+        (this.isDeleted = true)
       );
       setTimeout(() => {
         requester.GetAllProperties();

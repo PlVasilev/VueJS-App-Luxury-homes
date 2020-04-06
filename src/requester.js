@@ -9,7 +9,8 @@ Kinvey.init({
     appSecret: kinvey.appSecret
 });
 
-var dataStore = Kinvey.DataStore.collection('properties', Kinvey.DataStoreType.Network);
+var propertiesData = Kinvey.DataStore.collection('properties', Kinvey.DataStoreType.Network);
+var requestsData = Kinvey.DataStore.collection('requests', Kinvey.DataStoreType.Network);
 
 const requester = new Vue({
     methods: {
@@ -62,7 +63,7 @@ const requester = new Vue({
             creator = store.user.username,
             dateOfCreation,
             isDeleted) {
-            dataStore.save({
+            propertiesData.save({
                 title,
                 city,
                 imageUrl,
@@ -97,7 +98,7 @@ const requester = new Vue({
             creator = store.user.username,
             dateOfCreation,
             isDeleted) {
-            dataStore.save({
+            propertiesData.save({
                 _id,
                 title,
                 city,
@@ -119,18 +120,28 @@ const requester = new Vue({
             });
         },
         GetAllProperties() {
-            var stream = dataStore.find();
+            var stream = propertiesData.find();
             stream.subscribe(function onNext(entities) {
                 store.allProperties = entities
-                .filter(x => x.isDeleted === false)
-                .sort(function (a, b) { return b.dateOfCreation - a.dateOfCreation});
+                    .filter(x => x.isDeleted === false)
+                    .sort(function (a, b) { return b.dateOfCreation - a.dateOfCreation });
                 localStorage.setItem('properties', JSON.stringify(store.allProperties))
             }, function onError(error) {
                 console.log(error)
             }, function onComplete() {
                 // ...
             });
-        }
+        },
+        addRequest(title, createdByUsername, createdByEmail, dateOfCreation, listingOwener
+        ) {
+            requestsData.save({
+                title, createdByUsername, createdByEmail, dateOfCreation, listingOwener
+            }).then(function onSuccess(entity) {
+                console.log(entity)
+            }).catch(function onError(error) {
+                console.log(error)
+            });
+        },
     },
 });
 
