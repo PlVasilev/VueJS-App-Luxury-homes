@@ -5,6 +5,7 @@ import Login from './components/authentication/Login';
 import Register from './components/authentication/Register';
 import Add from './components/properties/Add';
 import All from './components/properties/All';
+import My from './components/properties/My';
 import Search from './components/properties/Search';
 import Properties from './components/properties/Properties';
 import NotAuthorized from './components/core/NotAuthorized';
@@ -62,6 +63,10 @@ const router = new VueRouter({
           name: 'search',
           path: 'search',
           component: Search,   
+        },
+        {
+          path: 'my',
+          component: My,   
         }
       ]
     },

@@ -10,13 +10,19 @@
           </div>
           <div v-if="isAuth" class="col-md-2">
             <h6 class="text-uppercase font-weight-bold">
-              <router-link to="/login">Properties</router-link>
+              <router-link to="/properties/all">Properties</router-link>
             </h6>
           </div>
 
           <div v-if="isAuth" class="col-md-2">
             <h6 class="text-uppercase font-weight-bold">
-              <router-link to="/login">Add Property</router-link>
+              <router-link to="/properties/my">My Properties</router-link>
+            </h6>
+          </div>
+
+          <div v-if="isAuth" class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+              <router-link to="/properties/add">Add Property</router-link>
             </h6>
           </div>
 

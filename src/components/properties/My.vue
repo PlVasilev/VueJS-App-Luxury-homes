@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-if="!properties" class="listing-sections" id="properties-section">
-      <h1>THERE ARE NO PROPERTIES MACHING YOUR SERACH</h1>
+      <h1>YOU HAVE NO PROPERTIES</h1>
     </div>
-    
+
     <div v-else class="listing-sections" id="properties-section">
-         <h2>Searched by: {{search}}</h2>
+      <h2>My Properties</h2>
       <div class="container">
         <div class="row large-gutters">
           <app-single
@@ -34,30 +34,37 @@
 
 <script>
 import store from "../../store";
+import requester from "../../requester.js";
 import AppSingle from "./Single.vue";
 
 export default {
   components: {
     AppSingle
   },
-  data: function(){
-      return{ search: this.$route.params.search }
+  data: function() {
+    return { search: this.$route.params.search };
   },
   computed: {
     properties: function() {
-      return store.searchedProperties;
+      return store.myProperties;
     }
   },
-  destroyed(){
-      store.searchedProperties = null;
+  beforeCreate() {
+    store.myProperties = store.allProperties.filter(
+      x => x.creator === store.user.username);
+
+    requester.GetAllProperties();
+  },
+  destroyed() {
+    store.myProperties = null;
   }
 };
 </script>
 
 <style scoped>
-h2{
-    text-align: center;
-    padding-bottom: 0.2em;
+h2 {
+  text-align: center;
+  padding-bottom: 0.2em;
 }
 
 .listing-sections {

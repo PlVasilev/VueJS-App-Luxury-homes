@@ -78,6 +78,7 @@ export default {
       if (this.$v.$error) {
         return;
       }
+      requester.GetAllProperties();
       store.searchedProperties = store.allProperties.filter(
         x =>
           x.title.toLowerCase().includes(this.search.toLowerCase()) ||

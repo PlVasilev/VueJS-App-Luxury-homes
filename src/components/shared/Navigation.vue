@@ -23,7 +23,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-             <router-link v-if="isAuth" to="/login" class="nav-link">My Properties</router-link>
+             <router-link v-if="isAuth" to="/properties/my" class="nav-link">My Properties</router-link>
           </li>
             <li class="nav-item">
              <router-link v-if="isAuth" to="/properties/add" class="nav-link">Add Property</router-link>
