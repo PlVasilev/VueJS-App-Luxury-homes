@@ -7,6 +7,7 @@ import Add from './components/properties/Add';
 import All from './components/properties/All';
 import My from './components/properties/My';
 import Details from './components/properties/Details';
+import Edit from './components/properties/Edit';
 import Search from './components/properties/Search';
 import Properties from './components/properties/Properties';
 import NotAuthorized from './components/core/NotAuthorized';
@@ -68,6 +69,11 @@ const router = new VueRouter({
         {
           path: 'my',
           component: My,   
+        },
+        {
+          name: 'edit',
+          path: 'edit',
+          component: Edit,   
         },
         {
           path: 'details/:id',

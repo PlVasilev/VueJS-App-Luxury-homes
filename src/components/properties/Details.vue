@@ -33,7 +33,7 @@
               >Send Reqest to view the property</a>
               <a
                 v-if="user && user.username == selectedListing.creator"
-                routerLink="/listing/edit"
+                @click="editHandler"
                 class="btn btn-primary"
               >Edit</a>
               <a
@@ -59,27 +59,33 @@ export default {
   },
   computed: {
     selectedListing: function() {
-      console.log(store.selectedListing);
       return store.selectedListing[0];
     },
     postedOn: function() {
-      return moment(this.selectedListing.dateOfCreation).format("hh:mm DD/MM/YYYY");
+      return moment(this.selectedListing.dateOfCreation).format(
+        "hh:mm DD/MM/YYYY"
+      );
     },
     user: function() {
       return store.user;
     }
   },
-  beforeCreate() {
-    if (!localStorage.getItem("selectedPropertie")) {
-      store.selectedListing = store.allProperties.filter(
-        x => x._id === this.$route.params.id
-      );
-       localStorage.setItem(
-        "selectedPropertie",
-        JSON.stringify(store.selectedListing))
-    } else {
-      store.selectedListing = JSON.parse(localStorage.getItem("selectedPropertie"));
+  methods: {
+    editHandler() {
+      this.$router.push({
+        name: "edit",
+        params: { selectedListing: this.selectedListing }
+      });
     }
+  },
+  beforeCreate() {
+    store.selectedListing = JSON.parse(
+      localStorage.getItem("properties")
+    ).filter(x => x._id === this.$route.params.id);
+    localStorage.setItem(
+      "selectedPropertie",
+      JSON.stringify(store.selectedListing)
+    );
     requester.GetAllProperties();
   },
   destroyed() {

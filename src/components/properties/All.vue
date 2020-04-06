@@ -75,7 +75,6 @@ export default {
   },
   beforeCreate() {
     store.allProperties = JSON.parse(localStorage.getItem("properties"));
-    console.log( store.allProperties)
     requester.GetAllProperties();
   },
   methods: {

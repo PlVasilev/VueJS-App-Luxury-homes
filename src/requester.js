@@ -20,7 +20,7 @@ const requester = new Vue({
                 .then(function (user) {
                     console.log(user)
                     store.loggedUserName = user.username;
-                   
+
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -31,7 +31,7 @@ const requester = new Vue({
                 .then(function () {
                 }).catch(function (error) {
                     store.loggedUserName = null;
-                    store.user=null;
+                    store.user = null;
                     store.allProperties = null;
                     console.log(error);
                 });
@@ -41,7 +41,7 @@ const requester = new Vue({
             Kinvey.User.login(username, password)
                 .then(function (user) {
                     store.loggedUserName = user.username;
-                
+
                 })
                 .catch(function (error) {
                     store.loggedUserName = null;
@@ -82,16 +82,54 @@ const requester = new Vue({
                 console.log(error)
             });
         },
+        editPropertie(
+            _id,
+            title,
+            city,
+            imageUrl,
+            price,
+            yearOfConstruction,
+            addressInput,
+            descriptionInput,
+            sizeInput,
+            roomsInput,
+            floorInput,
+            creator = store.user.username,
+            dateOfCreation,
+            isDeleted) {
+            dataStore.save({
+                _id,
+                title,
+                city,
+                imageUrl,
+                price,
+                yearOfConstruction,
+                addressInput,
+                descriptionInput,
+                sizeInput,
+                roomsInput,
+                floorInput,
+                creator,
+                dateOfCreation,
+                isDeleted
+            }).then(function onSuccess(entity) {
+                console.log(entity)
+            }).catch(function onError(error) {
+                console.log(error)
+            });
+        },
         GetAllProperties() {
             var stream = dataStore.find();
             stream.subscribe(function onNext(entities) {
-                store.allProperties = entities.sort(function(a,b) {return b.dateOfCreation - a.dateOfCreation });
+                store.allProperties = entities
+                .filter(x => x.isDeleted === false)
+                .sort(function (a, b) { return b.dateOfCreation - a.dateOfCreation});
                 localStorage.setItem('properties', JSON.stringify(store.allProperties))
             }, function onError(error) {
                 console.log(error)
             }, function onComplete() {
                 // ...
-            });           
+            });
         }
     },
 });
