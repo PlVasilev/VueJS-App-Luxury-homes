@@ -59,7 +59,8 @@ export default {
   data: function() {
     return {
       id: this.$route.params.id,
-      dateOfCreation: Number
+      dateOfCreation: Number,
+      isDeleted: false
     };
   },
   computed: {
@@ -83,10 +84,12 @@ export default {
         store.user.username,
         store.user.email,
         this.dateOfCreation,
-        this.selectedListing.creator
+        this.selectedListing.creator,
+        this.isDeleted
       );
       setTimeout(() => {
         requester.GetAllProperties();
+        requester.GetAllRequests();
         if (store.user) {
           this.$router.push({ path: "/" });
           this.success = true;
@@ -120,6 +123,7 @@ export default {
       );
       setTimeout(() => {
         requester.GetAllProperties();
+        requester.GetAllRequests();
         if (store.user) {
           this.$router.push({ path: "/" });
           this.success = true;

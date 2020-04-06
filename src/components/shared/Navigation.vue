@@ -28,7 +28,7 @@
         </ul>
         <router-link v-if="!isAuth" to="/login" class="nav-link">Login</router-link>
         <router-link v-if="!isAuth" to="/register" class="nav-link">Register</router-link>
-        <router-link v-if="isAuth" to="/register" class="nav-link">Customer Requests</router-link>
+        <router-link v-if="isAuth" to="/requests" class="nav-link">Customer Requests</router-link>
         <a v-if="isAuth" class="nav-link" @click="logout">Logout</a>
       </div>
     </nav>
@@ -50,10 +50,12 @@ export default {
       localStorage.removeItem("kid_SyGwQQfwI.active_user");
       localStorage.removeItem("properties");
       localStorage.removeItem("myProperties");
+      localStorage.removeItem("requests");
       store.user = null;
       store.allProperties = null;
       store.loggedUserName = null;
       store.myProperties = null;
+      store.allRequests = null;
       if (!store.isInLanding) {
         this.$router.push({ path: "/" });
       }

@@ -7,7 +7,7 @@
           <h1>Edit Propertie</h1>
           <p v-if="authFailMsg" class="invalid-feedback">Server error please try again</p>
           <div v-if="!id" class="not-found">
-            <h3>Please selec propertie to edit from - propertie/details/edit </h3>
+            <h3>Please selec propertie to edit from - propertie/details/edit</h3>
           </div>
           <form v-else @submit.prevent="submitHandler">
             <div class="form-group input-group">
@@ -378,6 +378,7 @@ export default {
       );
       setTimeout(() => {
         requester.GetAllProperties();
+        requester.GetAllRequests();
         if (store.user) {
           this.$router.push({ path: "/" });
           this.success = true;

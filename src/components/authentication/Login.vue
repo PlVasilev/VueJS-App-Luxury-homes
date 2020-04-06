@@ -114,6 +114,7 @@ export default {
         () => {
           if (store.loggedUserName) {
             requester.GetAllProperties();
+            requester.GetAllRequests();
             this.$router.push({ path: "/" });
             this.success = true;
           } else {

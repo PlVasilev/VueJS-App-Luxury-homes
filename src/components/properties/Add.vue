@@ -363,6 +363,7 @@ export default {
       setTimeout(       
         () => {
           requester.GetAllProperties();
+           requester.GetAllRequests();
           if (store.user) {
             this.$router.push({ path: "/" });
             this.success = true;

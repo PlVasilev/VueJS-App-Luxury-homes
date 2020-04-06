@@ -10,6 +10,7 @@ import Details from './components/properties/Details';
 import Edit from './components/properties/Edit';
 import Search from './components/properties/Search';
 import Properties from './components/properties/Properties';
+import Requests from './components/requests/Requests';
 import NotAuthorized from './components/core/NotAuthorized';
 import store from './store.js'
 
@@ -40,10 +41,15 @@ const router = new VueRouter({
         next(redirectUrl);
       }
     },
-    // {
-    //   path: '/edit/:id',
-    //   component: About
-    // },
+    {
+      path: '/requests',
+      component: Requests,      
+      beforeEnter: (to, from, next) => {
+        store.getUser()
+        const redirectUrl = store.user ? undefined : '/notAuthorized'
+        next(redirectUrl);
+      }
+    },
     {
       path: '/properties',
       component: Properties,      

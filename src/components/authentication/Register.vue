@@ -5,9 +5,7 @@
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
           <h1>Registration Form</h1>
-           <p v-if="authFailMsg" class="invalid-feedback">
-            Username already exists
-          </p>
+          <p v-if="authFailMsg" class="invalid-feedback">Username already exists</p>
           <div v-if="success">Registration Successful</div>
           <form v-else @submit.prevent="submitHandler">
             <div class="form-group input-group">
@@ -16,7 +14,8 @@
                   <i class="fa fa-user"></i>
                 </span>
               </div>
-              <input v-bind:class="{ isValid: !$v.username.$invalid && $v.username.$dirty, isInvalid: $v.username.$error}"
+              <input
+                v-bind:class="{ isValid: !$v.username.$invalid && $v.username.$dirty, isInvalid: $v.username.$error}"
                 class="form-control"
                 type="text"
                 name="username"
@@ -41,7 +40,8 @@
                   <i class="fa fa-user"></i>
                 </span>
               </div>
-              <input v-bind:class="{ isValid: !$v.firstname.$invalid && $v.firstname.$dirty, isInvalid: $v.firstname.$error}"
+              <input
+                v-bind:class="{ isValid: !$v.firstname.$invalid && $v.firstname.$dirty, isInvalid: $v.firstname.$error}"
                 class="form-control"
                 type="text"
                 name="firstname"
@@ -66,7 +66,8 @@
                   <i class="fa fa-user"></i>
                 </span>
               </div>
-              <input v-bind:class="{ isValid: !$v.lastname.$invalid && $v.lastname.$dirty, isInvalid: $v.lastname.$error}"
+              <input
+                v-bind:class="{ isValid: !$v.lastname.$invalid && $v.lastname.$dirty, isInvalid: $v.lastname.$error}"
                 class="form-control"
                 type="text"
                 name="lastname"
@@ -91,7 +92,8 @@
                   <i class="fa fa-envelope"></i>
                 </span>
               </div>
-              <input v-bind:class="{ isValid: !$v.email.$invalid && $v.email.$dirty, isInvalid: $v.email.$error}"
+              <input
+                v-bind:class="{ isValid: !$v.email.$invalid && $v.email.$dirty, isInvalid: $v.email.$error}"
                 class="form-control"
                 type="email"
                 name="email"
@@ -130,7 +132,8 @@
                   <i class="fa fa-lock"></i>
                 </span>
               </div>
-              <input v-bind:class="{ isValid: !$v.password.$invalid && $v.password.$dirty, isInvalid: $v.password.$error}"
+              <input
+                v-bind:class="{ isValid: !$v.password.$invalid && $v.password.$dirty, isInvalid: $v.password.$error}"
                 class="form-control"
                 type="password"
                 name="password"
@@ -156,7 +159,8 @@
                   <i class="fa fa-lock"></i>
                 </span>
               </div>
-              <input v-bind:class="{ isValid: !$v.rePassword.$invalid && $v.rePassword.$dirty, isInvalid: $v.rePassword.$error}"
+              <input
+                v-bind:class="{ isValid: !$v.rePassword.$invalid && $v.rePassword.$dirty, isInvalid: $v.rePassword.$error}"
                 class="form-control"
                 type="password"
                 name="re-password"
@@ -248,7 +252,7 @@ export default {
         console.log("ERROR");
         return;
       }
-     
+
       requester.register(
         this.username,
         this.password,
@@ -257,22 +261,20 @@ export default {
         this.email,
         this.phonenumber
       );
-      
+
       //setTimeout( () => this.$router.push({ path: '/'}), 2500);
-      setTimeout(
-        () => {
-          console.log(store.loggedUserName)
-          requester.GetAllProperties();
-          if (store.loggedUserName) {
-            this.$router.push({ path: "/" });
-            this.success = true;
-          } else {
-            this.authFailMsg = true;
-          }
-        },
-        3000
-      );
-   }
+      setTimeout(() => {
+        console.log(store.loggedUserName);
+        requester.GetAllProperties();
+        requester.GetAllRequests();
+        if (store.loggedUserName) {
+          this.$router.push({ path: "/" });
+          this.success = true;
+        } else {
+          this.authFailMsg = true;
+        }
+      }, 3000);
+    }
   }
 };
 </script>

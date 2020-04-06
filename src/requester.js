@@ -132,14 +132,27 @@ const requester = new Vue({
                 // ...
             });
         },
-        addRequest(title, createdByUsername, createdByEmail, dateOfCreation, listingOwener
+        addRequest(title, createdByUsername, createdByEmail, dateOfCreation, listingOwener, isDeleted
         ) {
             requestsData.save({
-                title, createdByUsername, createdByEmail, dateOfCreation, listingOwener
+                title, createdByUsername, createdByEmail, dateOfCreation, listingOwener, isDeleted
             }).then(function onSuccess(entity) {
                 console.log(entity)
             }).catch(function onError(error) {
                 console.log(error)
+            });
+        },
+        GetAllRequests() {
+            var stream = requestsData.find();
+            stream.subscribe(function onNext(entities) { 
+                store.allRequests = entities
+                    .filter(x => x.isDeleted === false && store.loggedUserName === x.listingOwener)
+                    .sort(function (a, b) { return b.dateOfCreation - a.dateOfCreation });
+                localStorage.setItem('requests', JSON.stringify(store.allRequests))
+            }, function onError(error) {
+                console.log(error)
+            }, function onComplete() {
+                // ...
             });
         },
     },

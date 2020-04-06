@@ -76,6 +76,7 @@ export default {
   beforeCreate() {
     store.allProperties = JSON.parse(localStorage.getItem("properties"));
     requester.GetAllProperties();
+    requester.GetAllRequests();
   },
   methods: {
     submitHandler() {
