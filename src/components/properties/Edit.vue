@@ -380,12 +380,12 @@ export default {
         requester.GetAllProperties();
         requester.GetAllRequests();
         if (store.user) {
-          this.$router.push({ path: "/" });
+          this.$router.push({ path: "/properties/all" });
           this.success = true;
         } else {
           this.authFailMsg = true;
         }
-      }, 5000);
+      }, 1);
     }
   },
   destroyed() {

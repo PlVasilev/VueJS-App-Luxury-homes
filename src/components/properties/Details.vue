@@ -87,16 +87,15 @@ export default {
         this.selectedListing.creator,
         this.isDeleted
       );
-  
-        requester.GetAllProperties();
-        requester.GetAllRequests();
-        if (store.user) {
-          this.$router.push({ path: "/properties/all" });
-          this.success = true;
-        } else {
-          this.authFailMsg = true;
-        }
-    
+
+      requester.GetAllProperties();
+      requester.GetAllRequests();
+      if (store.user) {
+        this.$router.push({ path: "/properties/all" });
+        this.success = true;
+      } else {
+        this.authFailMsg = true;
+      }
     },
     editHandler() {
       this.$router.push({
@@ -121,16 +120,21 @@ export default {
         this.selectedListing.dateOfCreation,
         (this.isDeleted = true)
       );
-      setTimeout(() => {
-        requester.GetAllProperties();
-        requester.GetAllRequests();
-        if (store.user) {
-          this.$router.push({ path: "/" });
-          this.success = true;
-        } else {
-          this.authFailMsg = true;
-        }
-      }, 3000);
+      var propertiesArray = JSON.parse(localStorage.getItem("properties"));
+      localStorage.setItem(
+        "properties",
+        JSON.stringify(
+          propertiesArray.filter(x => x._id !== this.selectedListing._id)
+        )
+      );
+      requester.GetAllProperties();
+      requester.GetAllRequests();
+      if (store.user) {
+        this.$router.push({ path: "/properties/all" });
+        this.success = true;
+      } else {
+        this.authFailMsg = true;
+      }
     }
   },
   beforeCreate() {

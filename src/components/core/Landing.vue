@@ -9,7 +9,8 @@
         <div class="container-landing col-md-12">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-12 text-center">
-              <h1 class="text-shadow">Buy &amp; Sell Property Here</h1>
+              <h1 v-if="!isAuth" class="text-shadow">Buy &amp; Sell Property Here</h1>
+              <h1 v-if="isAuth" class="text-shadow">W E L C O M E</h1>
             </div>
           </div>
         </div>

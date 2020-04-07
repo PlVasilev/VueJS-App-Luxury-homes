@@ -64,6 +64,23 @@ const requester = new Vue({
             creator = store.user.username,
             dateOfCreation,
             isDeleted) {
+            var propertiesArray = JSON.parse(localStorage.getItem("properties"));
+            propertiesArray.unshift({
+                title,
+                city,
+                imageUrl,
+                price,
+                yearOfConstruction,
+                addressInput,
+                descriptionInput,
+                sizeInput,
+                roomsInput,
+                floorInput,
+                creator,
+                dateOfCreation,
+                isDeleted
+            })
+            localStorage.setItem("properties", JSON.stringify(propertiesArray))
             propertiesData.save({
                 title,
                 city,
@@ -79,7 +96,10 @@ const requester = new Vue({
                 dateOfCreation,
                 isDeleted
             }).then(function onSuccess(entity) {
-                console.log(entity)
+                var propertiesArray = JSON.parse(localStorage.getItem("properties"));
+                propertiesArray.shift()
+                propertiesArray.unshift(entity)
+                localStorage.setItem("properties", JSON.stringify(propertiesArray))
             }).catch(function onError(error) {
                 console.log(error)
             });
@@ -99,6 +119,24 @@ const requester = new Vue({
             creator = store.user.username,
             dateOfCreation,
             isDeleted) {
+            var propertiesArray = JSON.parse(localStorage.getItem("properties"));
+            propertiesArray.unshift({
+                _id,
+                title,
+                city,
+                imageUrl,
+                price,
+                yearOfConstruction,
+                addressInput,
+                descriptionInput,
+                sizeInput,
+                roomsInput,
+                floorInput,
+                creator,
+                dateOfCreation,
+                isDeleted
+            })
+            localStorage.setItem("properties", JSON.stringify(propertiesArray))
             propertiesData.save({
                 _id,
                 title,
