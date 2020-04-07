@@ -12,8 +12,7 @@
         </tr>
       </thead>
       <tbody>
-          <app-request v-for="(request, _id) in requests" :key="_id" :request="request"></app-request>
-       
+        <app-request v-for="(request, _id) in requests" :key="_id" :request="request"></app-request>
       </tbody>
     </table>
   </div>
@@ -29,28 +28,22 @@ export default {
     AppRequest
   },
   beforeCreate() {
-    store.GetAllRequests = JSON.parse(localStorage.getItem("requests"));
+    store.allRequests = JSON.parse(localStorage.getItem("requests"));
     requester.GetAllProperties();
     requester.GetAllRequests();
   },
   computed: {
     requests: function() {
+      if (store.allRequests.lenght === 0) {
+        store.allRequests = null;
+      }
       return store.allRequests;
-    }
+    },
   }
 };
 </script>
 
 <style scoped>
-.table td {
-  padding: 0 1em;
-  vertical-align: middle;
-}
-
-.btn-secondary {
-  padding: 0.2em 0.4em;
-}
-
 .jumbotron h1 {
   margin-top: 2em;
   text-align: center;

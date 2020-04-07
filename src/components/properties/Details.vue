@@ -87,16 +87,16 @@ export default {
         this.selectedListing.creator,
         this.isDeleted
       );
-      setTimeout(() => {
+  
         requester.GetAllProperties();
         requester.GetAllRequests();
         if (store.user) {
-          this.$router.push({ path: "/" });
+          this.$router.push({ path: "/properties/all" });
           this.success = true;
         } else {
           this.authFailMsg = true;
         }
-      }, 3000);
+    
     },
     editHandler() {
       this.$router.push({

@@ -34,6 +34,7 @@ const requester = new Vue({
                     store.loggedUserName = null;
                     store.user = null;
                     store.allProperties = null;
+                    store.allRequests = null;
                     console.log(error);
                 });
 
@@ -42,7 +43,7 @@ const requester = new Vue({
             Kinvey.User.login(username, password)
                 .then(function (user) {
                     store.loggedUserName = user.username;
-
+                    store.user = user;
                 })
                 .catch(function (error) {
                     store.loggedUserName = null;
@@ -142,9 +143,19 @@ const requester = new Vue({
                 console.log(error)
             });
         },
+        editRequest(_id, title, createdByUsername, createdByEmail, dateOfCreation, listingOwener, isDeleted
+        ) {
+            requestsData.save({
+                _id, title, createdByUsername, createdByEmail, dateOfCreation, listingOwener, isDeleted
+            }).then(function onSuccess(entity) {
+                console.log(entity)
+            }).catch(function onError(error) {
+                console.log(error)
+            });
+        },
         GetAllRequests() {
             var stream = requestsData.find();
-            stream.subscribe(function onNext(entities) { 
+            stream.subscribe(function onNext(entities) {
                 store.allRequests = entities
                     .filter(x => x.isDeleted === false && store.loggedUserName === x.listingOwener)
                     .sort(function (a, b) { return b.dateOfCreation - a.dateOfCreation });

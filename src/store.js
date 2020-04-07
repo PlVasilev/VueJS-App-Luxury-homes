@@ -1,12 +1,12 @@
 var store = {
    user: null,
    loggedUserName: null,
-   allProperties: null,
-   myProperties: null,
-   searchedProperties: null,
+   allProperties: Array,
+   myProperties: Array,
+   searchedProperties: Array,
    selectedListing: null,
    editedListing: null,
-   allRequests: null,
+   allRequests: Array,
    isInLanding: false,
    isLoggedIn: false,
    getUser(){

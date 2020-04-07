@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!properties" class="listing-sections" id="properties-section">
+    <div v-if="!properties.lenght === 0" class="listing-sections" id="properties-section">
       <h1>YOU HAVE NO PROPERTIES</h1>
     </div>
 
@@ -52,7 +52,7 @@ export default {
   computed: {
     properties: function() {
       return store.myProperties;
-    }
+    },
   },
   beforeCreate() {
     if (!localStorage.getItem("myProperties")) {
