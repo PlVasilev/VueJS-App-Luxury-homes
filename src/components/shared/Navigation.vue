@@ -51,11 +51,13 @@ export default {
       localStorage.removeItem("properties");
       localStorage.removeItem("myProperties");
       localStorage.removeItem("requests");
+      localStorage.removeItem("selectedPropertie");
       store.user = null;
       store.allProperties = null;
       store.loggedUserName = null;
       store.myProperties = null;
       store.allRequests = null;
+      store.selectedListing = null;
       if (!store.isInLanding) {
         this.$router.push({ path: "/" });
       }

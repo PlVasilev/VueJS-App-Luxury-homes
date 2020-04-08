@@ -376,7 +376,6 @@ export default {
         this.dateOfCreation,
         this.isDeleted
       );
-      setTimeout(() => {
         requester.GetAllProperties();
         requester.GetAllRequests();
         if (store.user) {
@@ -384,8 +383,7 @@ export default {
           this.success = true;
         } else {
           this.authFailMsg = true;
-        }
-      }, 1);
+        }  
     }
   },
   destroyed() {

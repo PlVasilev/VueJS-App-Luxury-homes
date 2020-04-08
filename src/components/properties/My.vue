@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!properties.lenght === 0" class="listing-sections" id="properties-section">
+    <div v-if="hasMyProperties === false" class="listing-sections" id="properties-section">
       <h1>YOU HAVE NO PROPERTIES</h1>
     </div>
 
@@ -47,12 +47,12 @@ export default {
     }
   },
   data: function() {
-    return { search: this.$route.params.search };
+    return { search: this.$route.params.search ,hasMyProperties: Boolean};
   },
   computed: {
     properties: function() {
       return store.myProperties;
-    },
+    }
   },
   beforeCreate() {
     if (!localStorage.getItem("myProperties")) {
@@ -65,8 +65,15 @@ export default {
     }
     requester.GetAllProperties();
   },
+  mounted() {
+    if (store.allProperties.length === 0) {
+      this.hasMyProperties = false;
+    } else {
+      this.hasMyProperties = true;
+    }
+  },
   destroyed() {
-    localStorage.removeItem("myProperties")
+    localStorage.removeItem("myProperties");
     store.myProperties = null;
   }
 };

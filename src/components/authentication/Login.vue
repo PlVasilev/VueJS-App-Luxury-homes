@@ -121,7 +121,7 @@ export default {
             this.authFailMsg = true;
           }
         },
-        3000
+        2500
       );
     }
   }

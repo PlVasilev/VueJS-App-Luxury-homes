@@ -273,7 +273,7 @@ export default {
         } else {
           this.authFailMsg = true;
         }
-      }, 3000);
+      }, 2500);
     }
   }
 };

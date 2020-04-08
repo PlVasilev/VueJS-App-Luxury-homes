@@ -272,7 +272,7 @@ const priceRegex = helpers.regex("priceRegex", /^[1-9]\d*$/);
 const descriptionRegex = helpers.regex("priceRegex", /^[\w\s,.`':;()&]{3,}$/);
 const yearOfConstructionRegex = helpers.regex(
   "yearOfConstructionRegex",
-  /^[1|2][0-9]{3}/
+  /^[1|2][0-9]{3}$/
 );
 
 export default {
@@ -371,7 +371,7 @@ export default {
             this.authFailMsg = true;
           }
         },
-        3000
+        2500
        );
     }
   }

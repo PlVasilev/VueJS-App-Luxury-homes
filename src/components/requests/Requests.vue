@@ -1,6 +1,6 @@
 <template>
   <div class="jumbotron">
-    <h1 v-if="!requests">THERE ARE NO REQUEST FOR YOUR PROPERTIES</h1>
+    <h1 v-if="hasRequests === false">THERE ARE NO REQUEST FOR YOUR PROPERTIES</h1>
     <table v-else class="table table-striped">
       <thead>
         <tr>
@@ -24,8 +24,18 @@ import store from "../../store";
 import AppRequest from "./Single.vue";
 
 export default {
+  data:  function(){
+    return { hasRequests: Boolean}
+  },
   components: {
     AppRequest
+  },
+  mounted() {
+    if (store.allRequests.length === 0) {
+      this.hasRequests = false;
+    } else {
+      this.hasRequests = true;
+    }
   },
   beforeCreate() {
     store.allRequests = JSON.parse(localStorage.getItem("requests"));
@@ -38,7 +48,7 @@ export default {
         store.allRequests = null;
       }
       return store.allRequests;
-    },
+    }
   }
 };
 </script>

@@ -120,6 +120,7 @@ const requester = new Vue({
             dateOfCreation,
             isDeleted) {
             var propertiesArray = JSON.parse(localStorage.getItem("properties"));
+            propertiesArray.shift();
             propertiesArray.unshift({
                 _id,
                 title,
@@ -135,7 +136,7 @@ const requester = new Vue({
                 creator,
                 dateOfCreation,
                 isDeleted
-            })
+            });
             localStorage.setItem("properties", JSON.stringify(propertiesArray))
             propertiesData.save({
                 _id,
@@ -152,8 +153,8 @@ const requester = new Vue({
                 creator,
                 dateOfCreation,
                 isDeleted
-            }).then(function onSuccess(entity) {
-                console.log(entity)
+            }).then(function onSuccess() {
+               
             }).catch(function onError(error) {
                 console.log(error)
             });

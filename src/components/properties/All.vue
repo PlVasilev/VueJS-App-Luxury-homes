@@ -16,7 +16,7 @@
     <template v-if="$v.search.$error">
       <div v-if="!$v.search.required" class="invalid-feedback">You must enter input in search field</div>
     </template>
-    <div v-if="!properties" class="listing-sections" id="properties-section">
+    <div v-if="hasProperties === false" class="listing-sections" id="properties-section">
       <h1>THERE ARE NO PROPERTIES YET</h1>
     </div>
     <div v-else class="listing-sections" id="properties-section">
@@ -55,14 +55,15 @@ import store from "../../store";
 
 export default {
   mixins: [validationMixin],
-    filters: {
+  filters: {
     listingEditLink(listing) {
       return `/properties/details/${listing._id}`;
     }
   },
   data() {
     return {
-      search: ""
+      search: "",
+      hasProperties: Boolean
     };
   },
   validations: {
@@ -77,6 +78,13 @@ export default {
     store.allProperties = JSON.parse(localStorage.getItem("properties"));
     requester.GetAllProperties();
     requester.GetAllRequests();
+  },
+  mounted() {
+    if (store.allProperties.length === 0) {
+      this.hasProperties = false;
+    } else {
+      this.hasProperties = true;
+    }
   },
   methods: {
     submitHandler() {
