@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import requester from "../../requester.js";
-import store from "../../store";
+import requester from "@/plugins/requester.js";
+import store from "@/store/store";
 import AppRequest from "./Single.vue";
 
 export default {

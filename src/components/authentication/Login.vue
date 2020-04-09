@@ -80,8 +80,8 @@
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 import { helpers } from "vuelidate/lib/validators";
-import requester from "../../requester.js";
-import store from "../../store";
+import requester from "@/plugins/requester.js";
+import store from "@/store/store";
 
 const alphanumeric = helpers.regex("alphanumeric", /^[a-zA-Z0-9]{3,}$/);
 export default {

@@ -263,12 +263,9 @@
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 import { helpers } from "vuelidate/lib/validators";
-import requester from "../../requester.js";
-import store from "../../store";
+import requester from "@/plugins/requester.js";
+import store from "@/store/store";
 
-//var moment = require('moment');
-
-//const alphanumeric = helpers.regex("alphanumeric", /^[a-zA-Z0-9]{3,}$/);
 const priceRegex = helpers.regex("priceRegex", /^[1-9]\d*$/);
 const descriptionRegex = helpers.regex("priceRegex", /^[\w\s,.`':;()&]{3,}$/);
 const yearOfConstructionRegex = helpers.regex(

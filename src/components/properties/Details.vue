@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import requester from "../../requester.js";
-import store from "../../store";
+import requester from "@/plugins/requester.js";
+import store from "@/store/store";
 var moment = require("moment");
 
 export default {

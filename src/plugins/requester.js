@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import * as Kinvey from "kinvey-html5-sdk";
 import kinvey from './kinvey-config.js';
-import store from './store.js';
+import store from '@/store/store.js';
 
 
 Kinvey.init({
@@ -119,8 +119,8 @@ const requester = new Vue({
             creator = store.user.username,
             dateOfCreation,
             isDeleted) {
-            var propertiesArray = JSON.parse(localStorage.getItem("properties"));
-            propertiesArray.shift();
+            var currentPropertiesArray = JSON.parse(localStorage.getItem("properties"));
+            var propertiesArray = currentPropertiesArray.filter(x => x._id !== _id);
             propertiesArray.unshift({
                 _id,
                 title,

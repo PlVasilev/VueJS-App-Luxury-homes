@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import store from "../../store";
-import requester from "../../requester.js";
+import store from "@/store/store";
+import requester from "@/plugins/requester.js";
 import AppSingle from "./Single.vue";
 
 export default {

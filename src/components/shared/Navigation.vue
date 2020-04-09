@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import requester from "../../requester.js";
-import store from "../../store.js";
+import requester from "@/plugins/requester.js";
+import store from "@/store/store";
 
 export default {
   props: {

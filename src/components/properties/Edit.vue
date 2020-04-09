@@ -267,8 +267,8 @@
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 import { helpers } from "vuelidate/lib/validators";
-import requester from "../../requester.js";
-import store from "../../store";
+import requester from "@/plugins/requester.js";
+import store from "@/store/store";
 
 const priceRegex = helpers.regex("priceRegex", /^[1-9]\d*$/);
 const descriptionRegex = helpers.regex("priceRegex", /^[\w\s,.`':;()&]{3,}$/);

@@ -49,9 +49,9 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
-import requester from "../../requester.js";
+import requester from "@/plugins/requester.js";
 import AppSingle from "./Single.vue";
-import store from "../../store";
+import store from "@/store/store";
 
 export default {
   mixins: [validationMixin],

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import store from "../../store";
+import store from "@/store/store";
 import AppSingle from "./Single.vue";
 
 export default {
