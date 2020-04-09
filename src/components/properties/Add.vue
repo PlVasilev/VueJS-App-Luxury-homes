@@ -343,8 +343,7 @@ export default {
         return;
       }
       this.addPropertyLoader = true;
-      this.dateOfCreation = Date.now(); // moment().format(Date.now());
-      //console.log(moment(new Date()).format("DD/MM/YYYY"))
+      this.dateOfCreation = Date.now();
       requester.addPropertie(
         this.title,
         this.city,

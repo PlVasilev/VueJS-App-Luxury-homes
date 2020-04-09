@@ -6,6 +6,7 @@
         <div class="col-lg-4">
           <h1>Edit Propertie</h1>
           <p v-if="authFailMsg" class="invalid-feedback">Server error please try again</p>
+          <p v-if="editPropertyLoader === true" class="valid-feedback">Editing Property ...</p>
           <div v-if="!id" class="not-found">
             <h3>Please selec propertie to edit from - propertie/details/edit</h3>
           </div>
@@ -296,7 +297,8 @@ export default {
       dateOfCreation: store.editedListing.dateOfCreation,
       isDeleted: false,
       success: false,
-      authFailMsg: false
+      authFailMsg: false,
+      editPropertyLoader: false
     };
   },
   validations: {
@@ -358,8 +360,9 @@ export default {
       if (this.$v.$error) {
         return;
       }
-      this.dateOfCreation = Date.now(); // moment().format(Date.now());
-      //console.log(moment(new Date()).format("DD/MM/YYYY"))
+      this.editPropertyLoader = true;
+      this.dateOfCreation = Date.now();
+
       requester.editPropertie(
         this.id,
         this.title,
@@ -376,6 +379,7 @@ export default {
         this.dateOfCreation,
         this.isDeleted
       );
+      setTimeout(() => {
         requester.GetAllProperties();
         requester.GetAllRequests();
         if (store.user) {
@@ -383,7 +387,9 @@ export default {
           this.success = true;
         } else {
           this.authFailMsg = true;
-        }  
+          this.editPropertyLoader = false;
+        }
+      }, 500);
     }
   },
   destroyed() {

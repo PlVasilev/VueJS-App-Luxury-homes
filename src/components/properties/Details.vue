@@ -27,6 +27,9 @@
               <p>Posted on: {{postedOn}}</p>
               <p>Posted by: {{selectedListing.creator}}</p>
               <p>Description: {{selectedListing.descriptionInput}}</p>
+              <p v-if="authFailMsg" class="invalid-feedback">Server error please try again</p>
+              <p v-if="requestLoader === true" class="valid-feedback">Sending request...</p>
+              <p v-if="deleteLoader === true" class="valid-feedback">Deleting property...</p>
               <a
                 v-if="user && user.username != selectedListing.creator"
                 class="btn btn-primary"
@@ -60,7 +63,10 @@ export default {
     return {
       id: this.$route.params.id,
       dateOfCreation: Number,
-      isDeleted: false
+      isDeleted: false,
+      requestLoader: false,
+      deleteLoader: false,
+      authFailMsg: false
     };
   },
   computed: {
@@ -78,6 +84,7 @@ export default {
   },
   methods: {
     sendRequestHandler() {
+      this.requestLoader = true;
       this.dateOfCreation = Date.now();
       requester.addRequest(
         this.selectedListing.title,
@@ -87,15 +94,17 @@ export default {
         this.selectedListing.creator,
         this.isDeleted
       );
-
-      requester.GetAllProperties();
-      requester.GetAllRequests();
-      if (store.user) {
-        this.$router.push({ path: "/properties/all" });
-        this.success = true;
-      } else {
-        this.authFailMsg = true;
-      }
+      setTimeout(() => {
+        requester.GetAllProperties();
+        requester.GetAllRequests();
+        if (store.user) {
+          this.$router.push({ path: "/properties/all" });
+          this.success = true;
+        } else {
+          this.authFailMsg = true;
+          this.requestLoader = false;
+        }
+      }, 500);
     },
     editHandler() {
       this.$router.push({
@@ -104,6 +113,7 @@ export default {
       });
     },
     deleteHandler() {
+      this.deleteLoader = true;
       requester.editPropertie(
         this.selectedListing._id,
         this.selectedListing.title,
@@ -127,14 +137,18 @@ export default {
           propertiesArray.filter(x => x._id !== this.selectedListing._id)
         )
       );
-      requester.GetAllProperties();
-      requester.GetAllRequests();
-      if (store.user) {
-        this.$router.push({ path: "/properties/all" });
-        this.success = true;
-      } else {
-        this.authFailMsg = true;
-      }
+      console.log(this.deleteLoader)
+      setTimeout(() => {
+        requester.GetAllProperties();
+        requester.GetAllRequests();
+        if (store.user) {
+          this.$router.push({ path: "/properties/all" });
+          this.success = true;
+        } else {
+          this.authFailMsg = true;
+          this.deleteHandler = false;
+        }
+      }, 500);
     }
   },
   beforeCreate() {
