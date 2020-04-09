@@ -6,6 +6,7 @@
         <div class="col-lg-4">
           <h1>Registration Form</h1>
           <p v-if="authFailMsg" class="invalid-feedback">Username already exists</p>
+          <p v-if="registerLoader === true" class="valid-feedback">Registering and signing in...</p>
           <div v-if="success">Registration Successful</div>
           <form v-else @submit.prevent="submitHandler">
             <div class="form-group input-group">
@@ -215,7 +216,8 @@ export default {
       password: "",
       rePassword: "",
       success: false,
-      authFailMsg: false
+      authFailMsg: false,
+      registerLoader: false
     };
   },
   validations: {
@@ -252,7 +254,7 @@ export default {
         console.log("ERROR");
         return;
       }
-
+      this.registerLoader = true;
       requester.register(
         this.username,
         this.password,
@@ -261,8 +263,6 @@ export default {
         this.email,
         this.phonenumber
       );
-
-      //setTimeout( () => this.$router.push({ path: '/'}), 2500);
       setTimeout(() => {
         console.log(store.loggedUserName);
         requester.GetAllProperties();
@@ -272,8 +272,9 @@ export default {
           this.success = true;
         } else {
           this.authFailMsg = true;
+          this.registerLoader = false;
         }
-      }, 2500);
+      }, 3000);
     }
   }
 };

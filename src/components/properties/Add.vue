@@ -6,6 +6,7 @@
         <div class="col-lg-4">
           <h1>Add Propertie</h1>
           <p v-if="authFailMsg" class="invalid-feedback">Server error please try again</p>
+          <p v-if="addPropertyLoader === true" class="valid-feedback">Adding Property ...</p>
           <div v-if="success">Added Propertie</div>
           <form v-else @submit.prevent="submitHandler">
             <div class="form-group input-group">
@@ -293,7 +294,8 @@ export default {
       dateOfCreation: "",
       isDeleted: false,
       success: false,
-      authFailMsg: false
+      authFailMsg: false,
+      addPropertyLoader: false
     };
   },
   validations: {
@@ -343,6 +345,7 @@ export default {
       if (this.$v.$error) {
         return;
       }
+      this.addPropertyLoader = true;
       this.dateOfCreation = Date.now(); // moment().format(Date.now());
       //console.log(moment(new Date()).format("DD/MM/YYYY"))
       requester.addPropertie(
@@ -369,9 +372,10 @@ export default {
             this.success = true;
           } else {
             this.authFailMsg = true;
+            this.addPropertyLoader = false;
           }
         },
-        2500
+        3000
        );
     }
   }

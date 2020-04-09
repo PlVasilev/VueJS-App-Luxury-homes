@@ -5,9 +5,8 @@
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
           <h1>Login Form</h1>
-          <p v-if="authFailMsg" class="invalid-feedback">
-            Invalid Userename or Password
-          </p>
+          <p v-if="authFailMsg" class="invalid-feedback">Invalid Userename or Password</p>
+          <p v-if="logInLoader === true" class="valid-feedback">Logining in...</p>
           <div v-if="success">Registration Successful</div>
           <form v-else @submit.prevent="submitHandler">
             <div class="form-group input-group">
@@ -16,7 +15,8 @@
                   <i class="fa fa-user"></i>
                 </span>
               </div>
-              <input v-bind:class="{ isValid: !$v.username.$invalid && $v.username.$dirty, isInvalid: $v.username.$error}"
+              <input
+                v-bind:class="{ isValid: !$v.username.$invalid && $v.username.$dirty, isInvalid: $v.username.$error}"
                 class="form-control"
                 type="text"
                 name="username"
@@ -41,7 +41,8 @@
                   <i class="fa fa-lock"></i>
                 </span>
               </div>
-              <input v-bind:class="{ isValid: !$v.password.$invalid && $v.password.$dirty, isInvalid: $v.password.$error}"
+              <input
+                v-bind:class="{ isValid: !$v.password.$invalid && $v.password.$dirty, isInvalid: $v.password.$error}"
                 class="form-control"
                 type="password"
                 name="password"
@@ -90,7 +91,8 @@ export default {
       username: "",
       password: "",
       success: false,
-      authFailMsg: false
+      authFailMsg: false,
+      logInLoader: false,
     };
   },
   validations: {
@@ -109,20 +111,19 @@ export default {
       if (this.$v.$error) {
         return;
       }
+      this.logInLoader = true;
       requester.login(this.username, this.password);
-      setTimeout(
-        () => {
-          if (store.loggedUserName) {
-            requester.GetAllProperties();
-            requester.GetAllRequests();
-            this.$router.push({ path: "/" });
-            this.success = true;
-          } else {
-            this.authFailMsg = true;
-          }
-        },
-        2500
-      );
+      setTimeout(() => {
+        if (store.loggedUserName) {
+          requester.GetAllProperties();
+          requester.GetAllRequests();
+          this.$router.push({ path: "/" });
+          this.success = true;
+        } else {
+          this.authFailMsg = true;
+          this.logInLoader = false;
+        }
+      }, 3000);
     }
   }
 };
