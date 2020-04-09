@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div v-if="hasSearchedProperties === false" class="listing-sections" id="properties-section">
-      <h1>THERE ARE NO PROPERTIES MACHING YOUR SERACH</h1>
+    <div
+      v-if="hasSearchedProperties === false && properties.length === 0"
+      class="listing-sections"
+      id="properties-section"
+    >
+      <h2>THERE ARE NO PROPERTIES MACHING YOUR SERACH</h2>
     </div>
 
     <div v-else class="listing-sections" id="properties-section">
@@ -15,9 +19,9 @@
           >
             <div slot="listing" class="ftco-media-1">
               <div class="ftco-media-1-inner">
-                <a @click="detailsIdHandler(listing._id)" class="d-inline-block mb-4">
+                <router-link :to="listing | listingEditLink" class="d-inline-block mb-4">
                   <img :src="listing.imageUrl" alt="FImageo" class="img-fluid" />
-                </a>
+                </router-link>
                 <div class="ftco-media-details">
                   <h3>{{listing.city}}</h3>
                   <p class="single-title">{{listing.title}}</p>
@@ -40,20 +44,28 @@ export default {
   components: {
     AppSingle
   },
+  filters: {
+    listingEditLink(listing) {
+      return `/properties/details/${listing._id}`;
+    }
+  },
   data: function() {
     return {
       search: this.$route.params.search,
       hasSearchedProperties: Boolean
     };
   },
-
   computed: {
     properties: function() {
-      return store.searchedProperties;
+      if (!store.searchedProperties) {
+        return JSON.parse(localStorage.getItem("searchedProperties"));
+      } else {
+        return store.searchedProperties;
+      }
     }
   },
   mounted() {
-    if (store.searchedProperties.length === 0) {
+    if (!store.searchedProperties || store.searchedProperties.length === 0) {
       this.hasSearchedProperties = false;
     } else {
       this.hasSearchedProperties = true;

@@ -73,7 +73,6 @@ export default {
     }
   },
   destroyed() {
-    localStorage.removeItem("myProperties");
     store.myProperties = null;
   }
 };

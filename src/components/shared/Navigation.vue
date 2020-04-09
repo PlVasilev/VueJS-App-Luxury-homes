@@ -41,8 +41,7 @@ import store from "@/store/store";
 
 export default {
   props: {
-    isAuth: Boolean,
-    userProp: String
+    isAuth: Boolean
   },
   methods: {
     logout() {
@@ -52,6 +51,7 @@ export default {
       localStorage.removeItem("myProperties");
       localStorage.removeItem("requests");
       localStorage.removeItem("selectedPropertie");
+      localStorage.removeItem("searchedProperties");
       store.user = null;
       store.allProperties = null;
       store.loggedUserName = null;

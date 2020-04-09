@@ -3,7 +3,7 @@ var store = {
    loggedUserName: null,
    allProperties: Array,
    myProperties: Array,
-   searchedProperties: Array,
+   searchedProperties: null,
    selectedListing: null,
    editedListing: null,
    allRequests: Array,

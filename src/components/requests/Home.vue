@@ -38,7 +38,11 @@ export default {
     }
   },
   beforeCreate() {
-    store.allRequests = JSON.parse(localStorage.getItem("requests"));
+    if (!localStorage.getItem("requests")) {
+      localStorage.setItem("requests", JSON.stringify(store.allRequests));
+    } else {
+      store.allRequests = JSON.parse(localStorage.getItem("requests"));
+    }
     requester.GetAllProperties();
     requester.GetAllRequests();
   },

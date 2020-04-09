@@ -154,7 +154,7 @@ const requester = new Vue({
                 dateOfCreation,
                 isDeleted
             }).then(function onSuccess() {
-               
+
             }).catch(function onError(error) {
                 console.log(error)
             });
@@ -196,9 +196,9 @@ const requester = new Vue({
             var stream = requestsData.find();
             stream.subscribe(function onNext(entities) {
                 store.allRequests = entities
-                    .filter(x => x.isDeleted === false && store.loggedUserName === x.listingOwener)
+                    .filter(x => x.isDeleted === false && (store.loggedUserName === x.listingOwener || store.user.username === x.listingOwener))
                     .sort(function (a, b) { return b.dateOfCreation - a.dateOfCreation });
-                localStorage.setItem('requests', JSON.stringify(store.allRequests))
+                localStorage.setItem('requests', JSON.stringify(store.allRequests));
             }, function onError(error) {
                 console.log(error)
             }, function onComplete() {

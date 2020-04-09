@@ -98,6 +98,10 @@ export default {
           x.title.toLowerCase().includes(this.search.toLowerCase()) ||
           x.city.toLowerCase().includes(this.search.toLowerCase())
       );
+      localStorage.setItem(
+        "searchedProperties",
+        JSON.stringify(store.searchedProperties)
+      );
       this.$router.push({ name: "search", params: { search: this.search } });
     }
   },

@@ -74,7 +74,6 @@ export default {
     this.user =  localStorage.getItem("kid_SyGwQQfwI.active_user");
     store.isInLanding = true;
     store.user =  this.user
-    //console.log("a is: " + store.user);
   },
   destroyed: function(){
      store.isInLanding = false;

@@ -17,7 +17,10 @@ var moment = require("moment");
 
 export default {
   props: {
-    request: Object,
+    request: {
+      type: Object,
+      requered: true
+    }
   },
   methods: {
     deleteHandler() {
@@ -28,17 +31,17 @@ export default {
         this.request.createdByEmail,
         this.request.dateOfCreation,
         this.request.listingOwener,
-        (this.isDeleted = true)
+        (this.request.isDeleted = true)
       );
-        localStorage.removeItem("requests")
-        requester.GetAllProperties();
-        requester.GetAllRequests();
-        if (store.user) {
-          this.$router.push({ path: "/properties/all" });
-          this.success = true;
-        } else {
-          this.authFailMsg = true;
-        }
+      localStorage.removeItem("requests");
+      requester.GetAllProperties();
+      requester.GetAllRequests();
+      if (store.user) {
+        this.$router.push({ path: "/properties/all" });
+        this.success = true;
+      } else {
+        this.authFailMsg = true;
+      }
     }
   },
   computed: {

@@ -344,6 +344,7 @@ export default {
       }
       this.addPropertyLoader = true;
       this.dateOfCreation = Date.now();
+      
       requester.addPropertie(
         this.title,
         this.city,
