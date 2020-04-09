@@ -66,7 +66,7 @@ export default {
     requester.GetAllProperties();
   },
   mounted() {
-    if (store.allProperties.length === 0) {
+    if (store.myProperties.length === 0) {
       this.hasMyProperties = false;
     } else {
       this.hasMyProperties = true;

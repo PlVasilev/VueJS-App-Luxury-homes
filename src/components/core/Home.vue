@@ -55,7 +55,7 @@
 import store from "../../store.js";
 
 export default {
-  name: "AppLanding",
+  name: "AppHome",
    props: {
     isAuth: Boolean,
   },

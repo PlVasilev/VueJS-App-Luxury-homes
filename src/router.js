@@ -1,16 +1,16 @@
 import VueRouter from 'vue-router';
-import Landing from './components/core/Landing';
+import Home from './components/core/Home';
 import NotFound from './components/core/NotFound';
 import Login from './components/authentication/Login';
 import Register from './components/authentication/Register';
+import Properties from './components/properties/Home';
 import Add from './components/properties/Add';
 import All from './components/properties/All';
 import My from './components/properties/My';
 import Details from './components/properties/Details';
 import Edit from './components/properties/Edit';
 import Search from './components/properties/Search';
-import Properties from './components/properties/Properties';
-import Requests from './components/requests/Requests';
+import Requests from './components/requests/Home';
 import NotAuthorized from './components/core/NotAuthorized';
 import store from './store.js'
 
@@ -20,7 +20,7 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: Landing
+      component: Home
     },
     {
       path: '/login',
