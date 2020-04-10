@@ -118,13 +118,21 @@
                 </span>
               </div>
               <input
+                v-bind:class="{ isValid: !$v.phonenumber.$invalid && $v.phonenumber.$dirty, isInvalid: $v.phonenumber.$error}"
                 class="form-control"
                 type="text"
                 name="phonenumber"
                 id="phonenumber"
                 v-model="phonenumber"
                 placeholder="Phone Number"
+                @blur="$v.phonenumber.$touch"
               />
+              <template v-if="$v.phonenumber.$error">
+                <div
+                  v-if="!$v.phonenumber.digits"
+                  class="invalid-feedback"
+                >Phone number is not required but if set must contain only digits</div>
+              </template>
             </div>
 
             <div class="form-group input-group">
@@ -203,6 +211,7 @@ import requester from "@/plugins/requester.js";
 import store from "@/store/store";
 
 const alphanumeric = helpers.regex("alphanumeric", /^[a-zA-Z0-9]{3,}$/);
+const digits = helpers.regex("alphanumeric", /^[0-9]+$/);
 
 export default {
   mixins: [validationMixin],
@@ -237,6 +246,9 @@ export default {
       required,
       email
     },
+    phonenumber: {
+      digits
+    },
     password: {
       required,
       alphanumeric
@@ -264,7 +276,6 @@ export default {
         this.phonenumber
       );
       setTimeout(() => {
-        console.log(store.loggedUserName);
         requester.GetAllProperties();
         requester.GetAllRequests();
         if (store.loggedUserName) {
