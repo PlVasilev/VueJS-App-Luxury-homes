@@ -1,9 +1,9 @@
 <template>
   <tr>
-    <td>{{ dateOfCreation }}</td>
-    <td>{{ request.createdByUsername }}</td>
-    <td>{{ request.title }}</td>
-    <td>{{ request.createdByEmail }}</td>
+    <td>{{ dateOfCreationComp }}</td>
+    <td>{{ createdByUsername }}</td>
+    <td>{{ title }}</td>
+    <td>{{ createdByEmail }}</td>
     <td>
       <button @click="deleteHandler" class="btn btn-secondary">Remove</button>
     </td>
@@ -17,21 +17,44 @@ var moment = require("moment");
 
 export default {
   props: {
-    request: {
-      type: Object,
-      requered: true
-    }
+       _id: {
+         type: String,
+         requred: true
+       },
+        title: {
+         type: String,
+         requred: true
+       },
+        createdByUsername: {
+         type: String,
+         requred: true
+       },
+        createdByEmail: {
+         type: String,
+         requred: true
+       },
+        dateOfCreation: {
+         type: Number,
+       },
+        listingOwener: {
+         type: String,
+         requred: true
+       },
+       isDeleted: {
+         type: Boolean,
+       }
+  
   },
   methods: {
     deleteHandler() {
       requester.editRequest(
-        this.request._id,
-        this.request.title,
-        this.request.createdByUsername,
-        this.request.createdByEmail,
-        this.request.dateOfCreation,
-        this.request.listingOwener,
-        (this.request.isDeleted = true)
+        this._id,
+        this.title,
+        this.createdByUsername,
+        this.createdByEmail,
+        this.dateOfCreation,
+        this.listingOwener,
+        true
       );
       localStorage.removeItem("requests");
       requester.GetAllProperties();
@@ -45,8 +68,8 @@ export default {
     }
   },
   computed: {
-    dateOfCreation: function() {
-      return moment(this.request.dateOfCreation).format("hh:mm DD/MM/YYYY");
+    dateOfCreationComp: function() {
+      return moment(this.dateOfCreation).format("hh:mm DD/MM/YYYY");
     }
   }
 };

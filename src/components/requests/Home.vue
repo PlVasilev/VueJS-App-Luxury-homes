@@ -12,7 +12,16 @@
         </tr>
       </thead>
       <tbody>
-        <app-request v-for="(request, _id) in requests" :key="_id" :request="request"></app-request>
+        <app-request v-for="(request, _id) in requests" 
+        :key="_id" 
+        :_id="request._id"
+        :title="request.title"
+        :createdByUsername="request.createdByUsername"
+        :createdByEmail="request.createdByEmail"
+        :dateOfCreation="request.dateOfCreation"
+        :listingOwener="request.listingOwener"
+        :isDeleted="request.isDeleted"
+        ></app-request>
       </tbody>
     </table>
   </div>
