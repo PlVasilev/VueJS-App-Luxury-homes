@@ -72,9 +72,6 @@ export default {
       this.hasMyProperties = true;
     }
   },
-  destroyed() {
-    store.myProperties = null;
-  }
 };
 </script>
 

@@ -97,9 +97,12 @@ const requester = new Vue({
                 isDeleted
             }).then(function onSuccess(entity) {
                 var propertiesArray = JSON.parse(localStorage.getItem("properties"));
+                var myPropertiesArray = JSON.parse(localStorage.getItem("myProperties"));
                 propertiesArray.shift()
-                propertiesArray.unshift(entity)
+                propertiesArray.unshift(entity);
+                myPropertiesArray.unshift(entity);
                 localStorage.setItem("properties", JSON.stringify(propertiesArray))
+                localStorage.setItem("myProperties", JSON.stringify(myPropertiesArray))
             }).catch(function onError(error) {
                 console.log(error)
             });
