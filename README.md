@@ -1,8 +1,12 @@
 # Project - Luxury-Homes 
 
-## Type - System For listing properties on the market 
+### Vue JS, JavaScript, Kinvey
+
+#### Since my free trial of Kunvey consle has expired the app is no longer functional.
 
 ## Description
+
+### Type - System For listing properties on the market 
 
 This is a simple site for listing properties on the market as seller 
 and as buyer you can send rquest to view properies to the seller.
@@ -10,7 +14,7 @@ and as buyer you can send rquest to view properies to the seller.
 Not logged user can only see landing page register and login.
 
 Logged in User can add listing, edit it and remove it.
-Logged in Uesr can view all listings choose from them and
+Logged in User can view all listings choose from them and
 send request to see them and probably after that buy them.
 
 ## Entities
