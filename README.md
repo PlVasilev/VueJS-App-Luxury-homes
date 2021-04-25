@@ -1,8 +1,8 @@
 # Project - Luxury-Homes 
 
-### Vue JS, JavaScript, Kinvey
+## Vue JS, JavaScript, Kinvey
 
-#### Since my free trial of Kunvey consle has expired the app is no longer functional.
+### Since my free trial of Kunvey console has expired, with no database the app is no longer functional.
 
 ## Description
 
